@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>五台山 - 中国佛教四大名山之首</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wutai: {
+              primary: '#4A2C2A', // 深棕色，代表山岳与稳重
+              gold: '#D4AF37',    // 金色，代表佛教文化
+              red: '#680f25',      // 寺庙红墙
+              sand: '#E0C9A6',    // 沙色，代表宁静
+              dark: '#2D2926',    // 深褐色，代表稳定
+            },
+            temple:{
+                red: '#680f25',      // 寺庙红墙
+                 gold: '#D4AF37',     // 寺庙金色
+
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif SC"', 'serif'],
+          },
+          backgroundImage: {
+            'mountain-pattern': "url('https://picsum.photos/id/1048/1000/1000')",
+          },
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .animate-fade-in {
+        animation: fadeIn 1s ease-in-out;
+      }
+      .bg-mountain-pattern {
+        background-color: #f9f5f0;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234A2C2A' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      .temple-frame {
+        border: 4px solid #D4AF37;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .gold-leaf {
+        background: linear-gradient(135deg, #f9e090 0%, #d4af37 50%, #f9e090 100%);
+      }
+      .hover-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(135deg, #4A2C2A, #D4AF37);
+      }
+      .scroll-smooth {
+        scroll-behavior: smooth;
+      }
+      .mountain-shadow {
+        box-shadow: 0 0 30px rgba(74, 44, 42, 0.3);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+
+<body class="bg-white font-sans text-gray-800 overflow-x-hidden scroll-smooth">
+   <!-- 导航栏 -->
+   <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+    <nav class="bg-white/10 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
+        <div class="flex items-center space-x-2">
+            <a href="#" class="text-temple-red text-2xl font-bold flex items-center">
+                <!-- 增大后的logo -->
+                <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-12 w-auto rounded-md mr-2 object-cover">
+                <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">五台山</h2>
+            </a>
+        </div>
+
+        <!-- 桌面导航 -->
+        <div class="hidden md:flex items-center space-x-16">
+            <a href="chaoshneg.html"
+              class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">返回</a>
+              <a href="#about"  class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">基本概况</a>
+              <a href="#attractions"  class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">主要景点</a>
+
+      
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="hidden md:flex items-center space-x-2">
+            <div class="relative">
+                <input type="text" placeholder="搜索寺庙..."
+                    class="pl-10 pr-4 py-2 rounded-full bg-white/0 border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50 transition-all duration-300 w-48 focus:w-64">
+                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+            </div>
+        </div>
+
+        <!-- 移动端菜单按钮 -->
+        <div class="md:hidden flex items-center space-x-3">
+            <button id="searchBtn" class="text-temple-red text-xl focus:outline-none">
+                <i class="fa fa-search"></i>
+            </button>
+            <button id="menuBtn" class="text-temple-red text-xl focus:outline-none">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 移动端搜索框 -->
+    <div id="mobileSearch"
+        class="hidden md:hidden bg-white/95 backdrop-blur-md px-4 py-3 border-b border-temple-red/20">
+        <div class="relative">
+            <input type="text" placeholder="搜索寺庙..."
+                class="w-full pl-10 pr-4 py-2 rounded-full bg-white border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50">
+            <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+        </div>
+    </div>
+
+         
+</header>
+
+
+  <main>
+    <!-- 英雄区域 -->
+    <section id="home" class="relative h-[80vh] min-h-[600px] flex items-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="../AAA/images/wutaishan/1 (1).png" alt="五台山全景" class="w-full h-full object-cover">
+        
+      </div>
+      
+           <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <a href="#about" class="flex flex-col items-center">
+         
+          <i class="fa fa-angle-down text-2xl"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 基本概况 -->
+    <section id="about" class="py-20 bg-[#f5f2eb]">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16 reveal-element">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">五台山基本概况</h2>
+          <div class="w-20 h-1 bg-wutai-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            五台山位于中国山西省忻州市，是中国佛教四大名山之首，也是世界五大佛教圣地之一。因其五座主峰峰顶平坦如台而得名，主峰北台叶斗峰海拔3061米，为华北地区最高峰，素有"华北屋脊"之称。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- 地理位置 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group reveal-element mountain-shadow" style="transition-delay: 0.1s">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/wutaishan/1 (11).png" alt="五台山地理位置" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6 border-t-4 border-temtext-temple-red">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">地理位置</h3>
+              <p class="text-gray-600">
+                五台山地处山西省忻州市五台县境内，距省会太原约230公里，总面积达2,837平方公里。五台山属太行山系的北端，由一系列大山和群峰组成。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 历史文化 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group reveal-element mountain-shadow" style="transition-delay: 0.2s">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/wutaishan/1 (3).png" alt="五台山历史文化" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6 border-t-4 border-temtext-temple-red">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">历史文化</h3>
+              <p class="text-gray-600">
+                五台山的佛教历史可以追溯到东汉时期，距今已有近2000年历史。自北魏以来，五台山一直是中国佛教的中心之一，鼎盛时期寺庙达300余座。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 气候特点 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group reveal-element mountain-shadow" style="transition-delay: 0.3s">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/wutaishan/1 (2).png" alt="五台山气候特点" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6 border-t-4 border-temtext-temple-red">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">气候特点</h3>
+              <p class="text-gray-600">
+                五台山气候寒冷，又被称作"清凉山"，夏季平均气温17-20℃，是理想的避暑胜地。冬季漫长寒冷，多风雪，山顶终年有积雪。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 五台简介 -->
+        <div class="mt-20 reveal-element">
+          <h3 class="text-2xl font-serif font-semibold text-temple-red mb-8 text-center">五台山五峰</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div class="bg-white rounded-lg p-6 shadow-md hover-lift mountain-shadow">
+              <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-temtext-temple-red/10 rounded-full flex items-center justify-center mx-auto">
+                  <img src="../AAA/images/wutaishan/1 (7).png" alt="">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold text-center mb-2">东台望海峰</h4>
+              <p class="text-center text-sm text-gray-600">海拔2,795米，顶部如鳌鱼脊，是观日出云海的绝佳地点</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 shadow-md hover-lift mountain-shadow">
+              <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-temtext-temple-red/10 rounded-full flex items-center justify-center mx-auto">
+                  <img src="../AAA/images/wutaishan/1.png" alt="">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold text-center mb-2">西台挂月峰</h4>
+              <p class="text-center text-sm text-gray-600">海拔2,773米，顶部广平，月坠峰巅之际，有如悬镜，是赏月的好去处</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 shadow-md hover-lift mountain-shadow">
+              <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-temtext-temple-red/10 rounded-full flex items-center justify-center mx-auto">
+                  <img src="../AAA/images/wutaishan/1 (10).png" alt="">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold text-center mb-2">南台锦绣峰</h4>
+              <p class="text-center text-sm text-gray-600">海拔2,485米，夏季山花烂漫，犹如锦绣，是五台山植被最为茂盛的一座山峰</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 shadow-md hover-lift mountain-shadow">
+              <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-temtext-temple-red/10 rounded-full flex items-center justify-center mx-auto">
+                  <img src="../AAA/images/wutaishan/1 (9).png" alt="">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold text-center mb-2">北台叶斗峰</h4>
+              <p class="text-center text-sm text-gray-600">海拔3,061米，为五台山最高峰，也是华北地区最高点，素有"华北屋脊"之称</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 shadow-md hover-lift mountain-shadow">
+              <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-temtext-temple-red/10 rounded-full flex items-center justify-center mx-auto">
+                  <img src="../AAA/images/wutaishan/1 (6).png" alt="">
+                </div>
+              </div>
+              <h4 class="text-xl font-semibold text-center mb-2">中台翠岩峰</h4>
+              <p class="text-center text-sm text-gray-600">海拔2,894米，台顶巨石累累，石面杂生苔藓，阳光照射，碧翠生辉</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主要景点 -->
+    <section id="attractions" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16 reveal-element">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">五台山主要景点</h2>
+          <div class="w-20 h-1 bg-wutai-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            五台山拥有众多宏伟的佛教寺庙和壮丽的自然风光，是中国著名的佛教圣地和旅游胜地。以下是五台山的一些主要景点。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- 显通寺 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group reveal-element mountain-shadow">
+            <div class="h-64 overflow-hidden">
+              <img src="../AAA/images/wutaishan/1 (14).png" alt="显通寺" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">显通寺</h3>
+              <p class="text-gray-600 mb-4">
+                显通寺是五台山历史最悠久、规模最大的寺庙，始建于东汉永平年间，是中国最早的佛教寺庙之一。寺内保存有大量的文物古迹，如铜殿、铜塔、无量殿等。
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <span class="mr-4"><i class="fa fa-map-marker mr-1"></i> 台怀镇中心</span>
+                <span><i class="fa fa-clock-o mr-1"></i> 始建于东汉</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 塔院寺 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group reveal-element mountain-shadow">
+            <div class="h-64 overflow-hidden">
+              <img src="../AAA/images/wutaishan/1 (13).png" alt="塔院寺" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">塔院寺</h3>
+              <p class="text-gray-600 mb-4">
+                塔院寺以大白塔而闻名，大白塔是五台山的标志性建筑，高约56.4米，通体洁白，塔顶上悬有252个铜铃，微风吹过，叮当作响。
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <span class="mr-4"><i class="fa fa-map-marker mr-1"></i> 台怀镇中心</span>
+                <span><i class="fa fa-clock-o mr-1"></i> 始建于元大德年间</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 菩萨顶 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group reveal-element mountain-shadow">
+            <div class="h-64 overflow-hidden">
+              <img src="../AAA/images/wutaishan/1 (12).png" alt="菩萨顶" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">菩萨顶</h3>
+              <p class="text-gray-600 mb-4">
+                菩萨顶位于灵鹫峰上，是五台山最大的黄教寺院，寺内建筑金碧辉煌，布局严谨，具有浓厚的藏传佛教风格。菩萨顶是历代皇帝朝拜五台山时的行宫。
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <span class="mr-4"><i class="fa fa-map-marker mr-1"></i> 台怀镇灵鹫峰</span>
+                <span><i class="fa fa-clock-o mr-1"></i> 始建于北魏</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 黛螺顶 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group reveal-element mountain-shadow">
+            <div class="h-64 overflow-hidden">
+              <img src="../AAA/images/wutaishan/1 (16).png" alt="黛螺顶" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">黛螺顶</h3>
+              <p class="text-gray-600 mb-4">
+                黛螺顶位于台怀镇东面的黛螺山上，登顶可俯瞰台怀镇全景。寺内供奉有五方文殊菩萨像，登上黛螺顶朝拜五方文殊菩萨，称为"小朝台"。
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <span class="mr-4"><i class="fa fa-map-marker mr-1"></i> 台怀镇黛螺山</span>
+                <span><i class="fa fa-clock-o mr-1"></i> 始建于明代</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+       
+    </section>
+
+    <!-- 第七板块：中国古寺底部导航 -->
+    <section id="footerNav" class="relative h-96 md:h-[50vh] overflow-hidden bg-black">
+      <div class="absolute inset-0">
+          <img src="../AAA/images/7/0.png" alt="7" class="w-full h-full object-fit">
+          <div class="absolute inset-0 bg-black/40"></div>
+      </div>
+      <div class="relative z-10 h-full flex flex-col justify-between">
+          <div class="px-6 md:px-12 pt-48">
+              <div class="flex items-center">
+                  <img src="../AAA/images/logo2.png" alt="中国古寺标志" class="h-[clamp(2rem,5vw,3rem)] w-auto rounded-md object-cover mr-4">
+                  <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">中国古寺</h2>
+              </div>
+          </div>
+                      
+<!-- 新增分类导航栏 -->
+<div class="px-8 md:px-16 pb-12 w-full">
+  <div class="flex flex-wrap justify-center gap-6 md:gap-8 pt-0 pl-10">
+      <!-- 艺术与文物 - 子分类 -->
+      <div class="w-full md:w-auto px-2 mb-4 text-center">
+          <div class="relative inline-block">
+              <a href="yishuwenwu.html" class="px-4 py-2 pr-0 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                  艺术与文物
+                  <i class="fa fa-chevron-down ml-1 text-xs"></i>
+              </a>
+              <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                  <a href="yishuwenwu.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文物雕塑</a>
+                  <a href="yishuwenwu.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">壁画经卷</a>
+              </div>
+          </div>
+      </div>
+      
+      <!-- 名山与节庆 - 子分类 -->
+      <div class="w-full md:w-auto px-2 mb-4 text-center">
+          <div class="relative inline-block">
+              <a href="chaoshneg.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                  名山与节庆
+                  <i class="fa fa-chevron-down ml-1 text-xs"></i>
+              </a>
+              <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                  <a href="chaoshneg.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">四大名山</a>
+                  <a href="chaoshneg.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">节日庆典</a>
+              </div>
+          </div>
+      </div>
+      
+      <!-- 文学与传播 - 子分类 -->
+      <div class="w-full md:w-auto px-2 mb-4 text-center">
+          <div class="relative inline-block">
+              <a href="wenxuechuanbo.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                  文学与传播
+                  <i class="fa fa-chevron-down ml-1 text-xs"></i>
+              </a>
+              <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                  <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文化作品</a>
+                  <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">影视游戏</a>
+              </div>
+          </div>
+      </div>
+      
+      <!-- 建筑文化 - 子分类 -->
+      <div class="w-full md:w-auto px-2 mb-4 text-center">
+          <div class="relative inline-block">
+              <a href="jianzhu.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                  建筑文化
+                  <i class="fa fa-chevron-down ml-1 text-xs"></i>
+              </a>
+              <div class="absolute left-0 mt-2 w-48 flex flex-col pl-5 translate-x-1">
+                  <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-10">建筑风格</a>
+                  <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">布局解析</a>
+                  <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">装饰艺术</a>
+                  <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">著名案例</a>
+              </div>
+          </div>
+      </div>
+      
+      <!-- 饮食文化 - 子分类 -->
+      <div class="w-full md:w-auto px-2 mb-4 text-center">
+          <div class="relative inline-block">
+              <a href="yinshi.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                  饮食文化
+                  <i class="fa fa-chevron-down ml-1 text-xs"></i>
+              </a>
+              <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                  <a href="yinshi.html#vegetarian" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">素斋流派</a>
+                  <a href="yinshi.html#tea-culture" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">径山茶宴</a>
+                  <a href="yinshi.html#daily-routine" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">日常作息</a>
+              </div>
+          </div>
+      </div>
+       
+      <!-- 现代寺庙与社会 - 子分类 -->
+      <div class="w-full md:w-auto px-2 mb-4 text-center">
+          <div class="relative inline-block">
+              <a href="xiandai.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                  现代寺庙与社会
+                  <i class="fa fa-chevron-down ml-1 text-xs"></i>
+              </a>
+              <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                  <a href="xiandai.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">古寺公益</a>
+                  <a href="xiandai.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文创产品</a>
+                 
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="mt-16 text-center pb-4">
+  <div class="flex justify-center space-x-8 mb-8">
+      <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+          <i class="fa fa-weixin text-2xl"></i>
+      </a>
+      <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+          <i class="fa fa-weibo text-2xl"></i>
+      </a>
+      <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+          <i class="fa fa-youtube-play text-2xl"></i>
+      </a>
+      <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+          <i class="fa fa-instagram text-2xl"></i>
+      </a>
+  </div>
+</div>
+  
+</section>
+<!-- 返回顶部按钮 -->
+<button id="backToTop" class="fixed bottom-6 right-6 bg-temple-red hover:bg-temple-red/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 opacity-0 pointer-events-none z-50">
+  <i class="fa fa-arrow-up"></i>
+</button>
+<script>
+// 获取返回顶部按钮元素
+const backToTopButton = document.getElementById('backToTop');
+    
+    // 监听页面滚动事件
+    window.addEventListener('scroll', () => {
+        // 当页面滚动超过200像素时显示按钮
+        if (window.scrollY > 200) {
+            backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+            backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+    });
+    
+    // 点击按钮时平滑滚动到页面顶部
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+  </script>

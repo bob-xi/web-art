@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>萨迦寺经书 - 雪域瑰宝</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            temple: {
+              red: '#680f25',      // 寺庙红墙
+              primary: '#8C1515', // 深红色，代表宗教庄严
+              gold: '#D4AF37',    // 金色，代表神圣与珍贵
+              stone: '#A0522D',   // 石色，代表寺庙建筑
+              maroon: '#800000',  // 栗色，代表古老与深邃
+            },
+            parchment: '#F5F0E1', // 羊皮纸色，用于文本背景
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif SC"', 'serif'],
+            tibetan: ['"Noto Sans Tibetan"', 'sans-serif'],
+          },
+          backgroundImage: {
+            'tibetan-pattern': "url('https://picsum.photos/id/1048/1000/1000')",
+          },
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .animate-fade-in {
+        animation: fadeIn 1s ease-in-out;
+      }
+      .bg-temple-pattern {
+        background-color: #f9f5f0;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238c1515' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="bg-parchment font-sans text-gray-800">
+      <!-- 导航栏 -->
+      <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="bg-white/10 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-2">
+                <a href="#" class="text-temple-red text-2xl font-bold flex items-center">
+                    <!-- 增大后的logo -->
+                    <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-12 w-auto rounded-md mr-2 object-cover">
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">萨迦寺经书</h2>
+                </a>
+            </div>
+
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex items-center space-x-16">
+                <a href="yishuwenwu.html"
+                  class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">返回</a>
+                  <a href="#history" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">历史渊源</a>
+                  <a href="#collection" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">珍贵藏品</a>
+                  <a href="#features" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">特色亮点</a>
+                  <a href="#preservation" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">保护传承</a>
+                  <a href="#visit" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">参观信息</a>
+          
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="搜索寺庙..."
+                        class="pl-10 pr-4 py-2 rounded-full bg-white/0 border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50 transition-all duration-300 w-48 focus:w-64">
+                    <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+                </div>
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden flex items-center space-x-3">
+                <button id="searchBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-search"></i>
+                </button>
+                <button id="menuBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 移动端搜索框 -->
+        <div id="mobileSearch"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md px-4 py-3 border-b border-temple-red/20">
+            <div class="relative">
+                <input type="text" placeholder="搜索寺庙..."
+                    class="w-full pl-10 pr-4 py-2 rounded-full bg-white border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50">
+                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+            </div>
+        </div>
+
+             
+    </header>
+
+  <main>
+    <!-- 英雄区域 -->
+    <section id="home" class="relative h-[80vh] min-h-[600px] flex items-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="../AAA/images/3.1ysyuw/6 (10).png" alt="萨迦寺全景" class="w-full h-full object-cover">
+        
+      </div>
+     
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <a href="#intro" class="flex flex-col items-center">
+          <span class="mb-2"></span>
+          <i class="fa fa-angle-down text-2xl"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 简介部分 -->
+    <section id="intro" class="py-20 bg-[#f5f2eb]">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">萨迦寺与经书文化</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            萨迦寺始建于公元1073年，是藏传佛教萨迦派的祖寺。寺内珍藏的经书文献是西藏文化的重要组成部分，被誉为"雪域文化宝库"。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/3.1ysyuw/6 (2).png" alt="萨迦寺外观" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">历史悠久的萨迦寺</h3>
+              <p class="text-gray-600">
+                萨迦寺由昆氏家族的昆·贡却杰布创建于1073年，距今已有近千年历史。作为萨迦派的祖寺，它在藏传佛教历史上具有重要地位。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/3.1ysyuw/6 (3).png" alt="古老经书" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">经书文化的瑰宝</h3>
+              <p class="text-gray-600">
+                萨迦寺珍藏着超过8万部古代文献，包括贝叶经、纸质经书和金汁书写的经典，内容涵盖宗教、历史、哲学、医学等多个领域。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/3.1ysyuw/6 (4).png" alt="藏经阁" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">世界文化遗产</h3>
+              <p class="text-gray-600">
+                萨迦寺的经书收藏是世界上保存最完整、规模最大的藏文古代经典，被联合国教科文组织列为世界文化遗产预备名录。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 历史渊源 -->
+    <section id="history" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+          <div class="md:w-1/2">
+            <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-6">历史渊源</h2>
+            <div class="w-20 h-1 bg-temple-gold mb-8"></div>
+            
+            <p class="text-gray-700 mb-6">
+              萨迦寺始建于1073年，由吐蕃贵族昆氏家族的后裔昆·贡却杰布创建。当时，他发现奔波山南麓的土壤呈现灰白色，与佛经中描述的"吉祥之土"相契合，于是在此地修建了萨迦寺。
+            </p>
+            
+            <p class="text-gray-700 mb-6">
+              13世纪，萨迦派第五祖八思巴被元世祖忽必烈封为国师，掌管西藏地方政教大权，萨迦寺由此成为西藏政治、宗教、文化的中心。八思巴本人也在大都（今北京）主持了众多佛教经典的翻译和整理工作。
+            </p>
+            
+            <p class="text-gray-700 mb-8">
+              在随后的几个世纪里，萨迦寺不断扩建，收藏了大量的佛经、历史文献、艺术珍品等。特别是在14世纪，萨迦寺的大藏经阁建成，成为保存藏文经典的重要场所。
+            </p>
+            
+            <div class="bg-temple-primary/5 p-6 rounded-lg border-l-4 border-temple-gold">
+              <p class="text-gray-800 italic">
+                "萨迦寺的经书是西藏文化的活化石，它们不仅记录了佛教教义，也保存了古代西藏的历史、科学和艺术成就。"
+              </p>
+              <p class="text-temple-red font-semibold mt-2">—— 西藏文化研究院 丹增嘉措</p>
+            </div>
+          </div>
+          
+          <div class="md:w-1/2 grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="rounded-lg overflow-hidden shadow-lg transform translate-y-8">
+                <img src="../AAA/images/3.1ysyuw/6 (5).png" alt="萨迦寺历史照片" class="w-full h-auto mt-24">
+              </div>
+              
+            </div>
+            <div class="space-y-4">
+              <div class="rounded-lg overflow-hidden shadow-lg">
+                <img src="../AAA/images/3.1ysyuw/6 (7).png" alt="八思巴画像" class="w-full h-auto">
+              </div>
+              <div class="rounded-lg overflow-hidden shadow-lg transform translate-y-8">
+                <img src="../AAA/images/3.1ysyuw/6 (8).png" alt="萨迦寺建筑" class="w-full h-auto">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 珍贵藏品 -->
+    <section id="collection" class="py-20 bg-[#f5f2eb]">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">珍贵藏品</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            萨迦寺的经书收藏数量众多，种类丰富，其中不乏稀世珍宝。这些珍贵的文献是研究西藏历史、宗教、文化的重要资料。
+          </p>
+        </div>
+        
+        <!-- 藏品轮播 -->
+        <div class="relative">
+          <div class="carousel-container overflow-hidden">
+            <div class="carousel-track flex transition-transform duration-500" id="collection-carousel">
+              <!-- 藏品1 -->
+              <div class="carousel-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full">
+                  <div class="h-64 overflow-hidden">
+                    <img src="../AAA/images/3.1ysyuw/6 (13).png" alt="贝叶经" class="w-full h-full object-cover">
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-xl font-serif font-semibold text-temple-red mb-2">贝叶经《八千颂般若波罗蜜多经》</h3>
+                    <p class="text-gray-600 mb-4">
+                      这部贝叶经用梵文和藏文书写，是萨迦寺最古老的经书之一，距今已有800多年历史。贝叶经采用贝多罗树叶制作，经过特殊处理后不易腐烂，是研究古代佛教经典传承的重要资料。
+                    </p>
+                    <div class="flex justify-between items-center">
+                      <span class="text-sm text-gray-500">制作年代：12世纪</span>
+                      <span class="text-temple-gold font-semibold">一级文物</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 藏品2 -->
+              <div class="carousel-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full">
+                  <div class="h-64 overflow-hidden">
+                    <img src="../AAA/images/3.1ysyuw/6 (12).png" alt="金汁书写的大藏经" class="w-full h-full object-cover">
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-xl font-serif font-semibold text-temple-red mb-2">金汁书写《大藏经》</h3>
+                    <p class="text-gray-600 mb-4">
+                      这部《大藏经》用金汁书写在特制的藏纸上，共计108部，是萨迦寺最珍贵的藏品之一。经文内容包括经、律、论三藏，字体工整秀丽，金汁至今仍闪耀着光芒。
+                    </p>
+                    <div class="flex justify-between items-center">
+                      <span class="text-sm text-gray-500">制作年代：14-15世纪</span>
+                      <span class="text-temple-gold font-semibold">国宝级文物</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 藏品3 -->
+              <div class="carousel-item min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-4">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full">
+                  <div class="h-64 overflow-hidden">
+                    <img src="../AAA/images/3.1ysyuw/6 (11).png" alt="八思巴文文献" class="w-full h-full object-cover">
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-xl font-serif font-semibold text-temple-red mb-2">八思巴文《萨迦格言》</h3>
+                    <p class="text-gray-600 mb-4">
+                      这部文献用八思巴文书写，是元代官方文字的珍贵样本。《萨迦格言》是萨迦班智达贡嘎坚赞所著的一部哲理诗集，被誉为藏族哲理诗的典范。
+                    </p>
+                    <div class="flex justify-between items-center">
+                      <span class="text-sm text-gray-500">制作年代：13世纪</span>
+                      <span class="text-temple-gold font-semibold">一级文物</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+        
+        </div>
+      </div>
+    </section>
+
+    <!-- 特色亮点 -->
+    <section id="features" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">特色亮点</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            萨迦寺的经书不仅数量众多，而且具有独特的艺术价值和历史意义。以下是萨迦寺经书的几个显著特色。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <!-- 特色1 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-primary/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-book text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">历史悠久，保存完整</h3>
+              <p class="text-gray-600">
+                萨迦寺的经书收藏历史可以追溯到11世纪，历经近千年而保存完好。许多经书是从印度、尼泊尔等地传入的，是研究佛教传播和文化交流的重要资料。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 特色2 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-primary/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-paint-brush text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">艺术精湛，装饰华丽</h3>
+              <p class="text-gray-600">
+                许多经书采用金汁、银汁、朱砂等珍贵材料书写，并配以精美的插图和装饰。这些插图不仅具有艺术价值，也是研究古代绘画和工艺的重要实物资料。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 特色3 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-primary/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-university text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">内容丰富，涵盖广泛</h3>
+              <p class="text-gray-600">
+                萨迦寺的经书内容涵盖佛教经典、历史、哲学、医学、天文、历算等多个领域，是研究古代西藏社会、文化、科技的百科全书。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 特色4 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-primary/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-language text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">多语言版本，文化交融</h3>
+              <p class="text-gray-600">
+                寺内收藏有梵文、藏文、汉文、蒙古文等多种文字的经书，反映了不同文化之间的交流与融合，是研究古代语言和翻译史的重要资料。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 数据统计 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+          <div class="bg-[#f5f2eb] p-8 rounded-xl text-center shadow-lg">
+            <div class="text-4xl font-bold text-temple-red mb-2">80,000+</div>
+            <div class="text-gray-700">经书总数</div>
+          </div>
+          <div class="bg-[#f5f2eb] p-8 rounded-xl text-center shadow-lg">
+            <div class="text-4xl font-bold text-temple-red mb-2">1,000+</div>
+            <div class="text-gray-700">贝叶经数量</div>
+          </div>
+          <div class="bg-[#f5f2eb] p-8 rounded-xl text-center shadow-lg">
+            <div class="text-4xl font-bold text-temple-red mb-2">500+</div>
+            <div class="text-gray-700">金汁书写经书</div>
+          </div>
+          <div class="bg-[#f5f2eb] p-8 rounded-xl text-center shadow-lg">
+            <div class="text-4xl font-bold text-temple-red mb-2">900年</div>
+            <div class="text-gray-700">历史传承</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 保护传承 -->
+    <section id="preservation" class="py-20 bg-[#f5f2eb]">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">保护传承</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            面对岁月的侵蚀和现代社会的挑战，萨迦寺的经书保护工作显得尤为重要。多年来，政府和相关机构采取了一系列措施，确保这些珍贵的文化遗产得以传承。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div class="w-16 h-16 bg-temple-gold/20 rounded-full flex items-center justify-center mb-6 mx-auto">
+              <i class="fa fa-shield text-2xl text-temple-red"></i>
+            </div>
+            <h3 class="text-xl font-serif font-semibold text-temple-red text-center mb-4">科学保护</h3>
+            <p class="text-gray-600">
+              采用现代科技手段对经书进行保护，包括温湿度控制、防虫防霉处理、数字化扫描等。建立了专门的经书保护实验室，对破损的经书进行修复和加固。
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div class="w-16 h-16 bg-temple-gold/20 rounded-full flex items-center justify-center mb-6 mx-auto">
+              <i class="fa fa-database text-2xl text-temple-red"></i>
+            </div>
+            <h3 class="text-xl font-serif font-semibold text-temple-red text-center mb-4">数字化工程</h3>
+            <p class="text-gray-600">
+              启动了萨迦寺经书数字化工程，对重要的经书进行高清扫描和数字化存档。目前已完成超过20,000部经书的数字化工作，方便学者研究和公众查阅。
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div class="w-16 h-16 bg-temple-gold/20 rounded-full flex items-center justify-center mb-6 mx-auto">
+              <i class="fa fa-graduation-cap text-2xl text-temple-red"></i>
+            </div>
+            <h3 class="text-xl font-serif font-semibold text-temple-red text-center mb-4">传承与研究</h3>
+            <p class="text-gray-600">
+              培养新一代的佛经研究人员和保护专家，建立了专门的培训机构。同时，积极开展国际合作与学术交流，推动萨迦寺经书文化的研究和传播。
+            </p>
+          </div>
+        </div>
+        
+        <div class="mt-16 bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-1/2">
+              <img src="../AAA/images/3.1ysyuw/6 (9).png" alt="经书保护工作" class="w-full h-full object-cover">
+            </div>
+            <div class="md:w-1/2 p-8">
+              <h3 class="text-2xl font-serif font-semibold text-temple-red mb-6">经书修复师的一天</h3>
+              <p class="text-gray-600 mb-4">
+                在萨迦寺的经书保护中心，有一群专业的修复师，他们用传统技艺和现代科技相结合的方法，精心呵护着这些珍贵的文化遗产。
+              </p>
+              <ul class="space-y-3 mb-6">
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-temple-gold mt-1 mr-3"></i>
+                  <span>使用传统配方调制糨糊，用于修复破损的书页</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-temple-gold mt-1 mr-3"></i>
+                  <span>在显微镜下仔细清理经书表面的污渍和灰尘</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-temple-gold mt-1 mr-3"></i>
+                  <span>使用特制的纸张填补书页上的破损处</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fa fa-check-circle text-temple-gold mt-1 mr-3"></i>
+                  <span>对修复后的经书进行拍照和数字化记录</span>
+                </li>
+              </ul>
+              <p class="text-gray-600">
+                一位经验丰富的修复师每年大约能修复20-30部珍贵经书。他们的工作不仅是对文物的修复，更是对历史和文化的传承。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 参观信息 -->
+    <section id="visit" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">参观信息</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            如果您对萨迦寺的经书文化感兴趣，欢迎前来参观。在专业导游的带领下，您将有机会近距离欣赏这些珍贵的文化遗产。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <div class="bg-[#f5f2eb] rounded-xl p-8 shadow-lg">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-6">参观须知</h3>
+              
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="bg-temple-gold/20 p-2 rounded-full mr-4">
+                    <i class="fa fa-clock-o text-temple-red"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800 mb-1">开放时间</h4>
+                    <p class="text-gray-600">
+                      夏季（5月-10月）：09:00-18:00<br>
+                      冬季（11月-4月）：09:30-17:30<br>
+                      每周一闭馆（法定节假日除外）
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="bg-temple-gold/20 p-2 rounded-full mr-4">
+                    <i class="fa fa-ticket text-temple-red"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800 mb-1">门票价格</h4>
+                    <p class="text-gray-600">
+                      普通门票：¥80/人<br>
+                      学生票（凭学生证）：¥40/人<br>
+                      经书特展：¥30/人（需另行购票）
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="bg-temple-gold/20 p-2 rounded-full mr-4">
+                    <i class="fa fa-info-circle text-temple-red"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800 mb-1">注意事项</h4>
+                    <p class="text-gray-600">
+                      - 禁止在经堂内拍照和使用闪光灯<br>
+                      - 保持安静，尊重宗教场所<br>
+                      - 穿着得体，避免暴露的服装<br>
+                      - 建议提前预约专业导游（收费）
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8 bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-6">联系方式</h3>
+              
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <div class="bg-temple-primary/10 p-3 rounded-full mr-4">
+                    <i class="fa fa-map-marker text-temple-red"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800 mb-1">地址</h4>
+                    <p class="text-gray-600">西藏自治区日喀则市萨迦县萨迦镇</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="bg-temple-primary/10 p-3 rounded-full mr-4">
+                    <i class="fa fa-phone text-temple-red"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800 mb-1">电话</h4>
+                    <p class="text-gray-600">0892-8242222</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="bg-temple-primary/10 p-3 rounded-full mr-4">
+                    <i class="fa fa-envelope text-temple-red"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800 mb-1">邮箱</h4>
+                    <p class="text-gray-600">sakya_temple@example.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg">
+              <div class="h-80">
+                <img src="../AAA/images/3.1ysyuw/6 (1).png" alt="萨迦寺地图" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-serif font-semibold text-temple-red mb-4">交通指南</h3>
+                
+                <div class="space-y-4">
+                  <div class="bg-[#f5f2eb] p-4 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                      <i class="fa fa-plane text-temple-red mr-2"></i>
+                      航空
+                    </h4>
+                    <p class="text-gray-600">
+                      最近的机场是日喀则和平机场，距离萨迦寺约150公里。从机场可乘坐班车或包车前往萨迦县。
+                    </p>
+                  </div>
+                  
+                  <div class="bg-[#f5f2eb] p-4 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                      <i class="fa fa-train text-temple-red mr-2"></i>
+                      铁路
+                    </h4>
+                    <p class="text-gray-600">
+                      最近的火车站是日喀则站，距离萨迦寺约130公里。从火车站可乘坐班车或包车前往萨迦县。
+                    </p>
+                  </div>
+                  
+                  <div class="bg-[#f5f2eb] p-4 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                      <i class="fa fa-car text-temple-red mr-2"></i>
+                      公路
+                    </h4>
+                    <p class="text-gray-600">
+                      从日喀则市区可乘坐长途客车前往萨迦县，车程约3小时。也可包车或自驾前往，沿途风景优美。
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="mt-6">
+                  <h4 class="font-semibold text-gray-800 mb-3">推荐参观路线</h4>
+                  <ol class="list-decimal pl-5 text-gray-600 space-y-2">
+                    <li>萨迦南寺主殿 - 欣赏精美的壁画和佛像</li>
+                    <li>经书宝库 - 参观珍贵的经书收藏</li>
+                    <li>八思巴纪念馆 - 了解萨迦派历史和八思巴的生平</li>
+                    <li>萨迦北寺遗址 - 感受古代寺庙的宏伟气势</li>
+                    <li>当地村落 - 体验传统藏族生活</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 第七板块：中国古寺底部导航 -->
+  <section id="footerNav" class="relative h-96 md:h-[50vh] overflow-hidden bg-black">
+    <div class="absolute inset-0">
+        <img src="../AAA/images/7/0.png" alt="7" class="w-full h-full object-fit">
+        <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+    <div class="relative z-10 h-full flex flex-col justify-between">
+        <div class="px-6 md:px-12 pt-48">
+            <div class="flex items-center">
+                <img src="../AAA/images/logo2.png" alt="中国古寺标志" class="h-[clamp(2rem,5vw,3rem)] w-auto rounded-md object-cover mr-4">
+                <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">中国古寺</h2>
+            </div>
+        </div>
+                    
+<!-- 新增分类导航栏 -->
+<div class="px-8 md:px-16 pb-12 w-full">
+<div class="flex flex-wrap justify-center gap-6 md:gap-8 pt-0 pl-10">
+    <!-- 艺术与文物 - 子分类 -->
+    <div class="w-full md:w-auto px-2 mb-4 text-center">
+        <div class="relative inline-block">
+            <a href="yishuwenwu.html" class="px-4 py-2 pr-0 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                艺术与文物
+                <i class="fa fa-chevron-down ml-1 text-xs"></i>
+            </a>
+            <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                <a href="yishuwenwu.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文物雕塑</a>
+                <a href="yishuwenwu.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">壁画经卷</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 名山与节庆 - 子分类 -->
+    <div class="w-full md:w-auto px-2 mb-4 text-center">
+        <div class="relative inline-block">
+            <a href="chaoshneg.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                名山与节庆
+                <i class="fa fa-chevron-down ml-1 text-xs"></i>
+            </a>
+            <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                <a href="chaoshneg.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">四大名山</a>
+                <a href="chaoshneg.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">节日庆典</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 文学与传播 - 子分类 -->
+    <div class="w-full md:w-auto px-2 mb-4 text-center">
+        <div class="relative inline-block">
+            <a href="wenxuechuanbo.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                文学与传播
+                <i class="fa fa-chevron-down ml-1 text-xs"></i>
+            </a>
+            <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文化作品</a>
+                <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">影视游戏</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 建筑文化 - 子分类 -->
+    <div class="w-full md:w-auto px-2 mb-4 text-center">
+        <div class="relative inline-block">
+            <a href="jianzhu.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                建筑文化
+                <i class="fa fa-chevron-down ml-1 text-xs"></i>
+            </a>
+            <div class="absolute left-0 mt-2 w-48 flex flex-col pl-5 translate-x-1">
+                <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-10">建筑风格</a>
+                <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">布局解析</a>
+                <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">装饰艺术</a>
+                <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">著名案例</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 饮食文化 - 子分类 -->
+    <div class="w-full md:w-auto px-2 mb-4 text-center">
+        <div class="relative inline-block">
+            <a href="yinshi.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                饮食文化
+                <i class="fa fa-chevron-down ml-1 text-xs"></i>
+            </a>
+            <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                <a href="yinshi.html#vegetarian" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">素斋流派</a>
+                <a href="yinshi.html#tea-culture" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">径山茶宴</a>
+                <a href="yinshi.html#daily-routine" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">日常作息</a>
+            </div>
+        </div>
+    </div>
+     
+    <!-- 现代寺庙与社会 - 子分类 -->
+    <div class="w-full md:w-auto px-2 mb-4 text-center">
+        <div class="relative inline-block">
+            <a href="xiandai.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                现代寺庙与社会
+                <i class="fa fa-chevron-down ml-1 text-xs"></i>
+            </a>
+            <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                <a href="xiandai.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">古寺公益</a>
+                <a href="xiandai.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文创产品</a>
+               
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="mt-16 text-center pb-4 ">
+<div class="flex justify-center space-x-8 mb-8">
+    <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+        <i class="fa fa-weixin text-2xl"></i>
+    </a>
+    <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+        <i class="fa fa-weibo text-2xl"></i>
+    </a>
+    <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+        <i class="fa fa-youtube-play text-2xl"></i>
+    </a>
+    <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+        <i class="fa fa-instagram text-2xl"></i>
+    </a>
+</div>
+</div>
+ <!-- 返回顶部按钮 -->
+<button id="backToTop" class="fixed bottom-6 right-6 bg-temple-red hover:bg-temple-red/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 opacity-0 pointer-events-none z-50">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+  <script>
+  // 获取返回顶部按钮元素
+  const backToTopButton = document.getElementById('backToTop');
+      
+      // 监听页面滚动事件
+      window.addEventListener('scroll', () => {
+          // 当页面滚动超过200像素时显示按钮
+          if (window.scrollY > 200) {
+              backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+              backToTopButton.classList.add('opacity-100', 'pointer-events-auto');
+          } else {
+              backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+              backToTopButton.classList.remove('opacity-100', 'pointer-events-auto');
+          }
+      });
+      
+      // 点击按钮时平滑滚动到页面顶部
+      backToTopButton.addEventListener('click', () => {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      });
+    </script>
+    
+
+  <!-- JavaScript -->
+  <script>
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+    
+   
+    
+    // 藏品轮播
+    const carousel = document.getElementById('collection-carousel');
+    const prevButton = document.getElementById('prev-collection');
+    const nextButton = document.getElementById('next-collection');
+    const indicators = document.querySelectorAll('[data-index]');
+    
+    let currentSlide = 0;
+    const totalSlides = indicators.length;
+    
+    function updateCarousel() {
+      // 计算轮播项宽度
+      const itemWidth = 100;
+      const gap = 4; // 间距(px)
+      const containerWidth = carousel.parentElement.offsetWidth;
+      let itemsPerView = 1;
+      
+      if (containerWidth >= 1024) {
+        itemsPerView = 3;
+      } else if (containerWidth >= 768) {
+        itemsPerView = 2;
+      }
+      
+      // 计算偏移量
+      const offset = currentSlide * (itemWidth / itemsPerView);
+      carousel.style.transform = `translateX(-${offset}%)`;
+      
+      // 更新指示器状态
+      indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+          indicator.classList.add('opacity-100');
+          indicator.classList.remove('opacity-50');
+        } else {
+          indicator.classList.remove('opacity-100');
+          indicator.classList.add('opacity-50');
+        }
+      });
+    }
+    
+    prevButton.addEventListener('click', () => {
+      currentSlide = Math.max(0, currentSlide - 1);
+      updateCarousel();
+    });
+    
+    nextButton.addEventListener('click', () => {
+      const maxSlides = totalSlides - (window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1);
+      currentSlide = Math.min(maxSlides, currentSlide + 1);
+      updateCarousel();
+    });
+    
+    indicators.forEach(indicator => {
+      indicator.addEventListener('click', () => {
+        currentSlide = parseInt(indicator.getAttribute('data-index'));
+        updateCarousel();
+      });
+    });
+    
+    // 窗口大小变化时更新轮播
+    window.addEventListener('resize', updateCarousel);
+    
+    // 初始化轮播
+    updateCarousel();
+    
+    // 导航栏滚动效果
+    const header = document.querySelector('header');
+    let lastScrollTop = 0;
+    
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > 100) {
+        header.classList.add('py-2');
+        header.classList.remove('py-3');
+      } else {
+        header.classList.add('py-3');
+        header.classList.remove('py-2');
+      }
+      
+      lastScrollTop = scrollTop;
+    });
+  </script>
+</body>
+</html>
+    

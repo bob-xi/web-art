@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>神圣殿堂 - 寺庙装饰艺术</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            temple: {
+              primary: '#4A148C', // 深紫色，代表神圣与神秘
+              gold: '#D4AF37',    // 金色，代表庄严与尊贵
+              red: '#680f25',      // 寺庙红墙
+              sand: '#E0C9A6',    // 沙色，代表大地与安宁
+              dark: '#2D2926',    // 深褐色，代表稳定与厚重
+            },
+            stone: '#F5F5DC',    // 石灰色，用于背景
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif SC"', 'serif'],
+            tibetan: ['"Noto Sans Tibetan"', 'sans-serif'],
+          },
+          backgroundImage: {
+            'temple-pattern': "url('https://picsum.photos/id/1062/1000/1000')",
+          },
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .animate-fade-in {
+        animation: fadeIn 1s ease-in-out;
+      }
+      .bg-temple-pattern {
+        background-color: #f9f5f0;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234A148C' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      .temple-frame {
+        border: 4px solid #D4AF37;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .gold-leaf {
+        background: linear-gradient(135deg, #f9e090 0%, #d4af37 50%, #f9e090 100%);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="bg-stone font-sans text-gray-800">
+       <!-- 导航栏 -->
+       <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="bg-white/10 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-2">
+                <a href="#" class="text-temple-red text-2xl font-bold flex items-center">
+                    <!-- 增大后的logo -->
+                    <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-12 w-auto rounded-md mr-2 object-cover">
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">装饰艺术</h2>
+                </a>
+            </div>
+
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex items-center space-x-16">
+                <a href="jianzhu.html"
+                  class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">返回</a>
+                  <a href="#history"  class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">历史渊源</a>
+        <a href="#art" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">艺术特色</a>
+        <a href="#elements" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">典型元素</a>
+       
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="搜索寺庙..."
+                        class="pl-10 pr-4 py-2 rounded-full bg-white/0 border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50 transition-all duration-300 w-48 focus:w-64">
+                    <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+                </div>
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden flex items-center space-x-3">
+                <button id="searchBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-search"></i>
+                </button>
+                <button id="menuBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 移动端搜索框 -->
+        <div id="mobileSearch"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md px-4 py-3 border-b border-temple-red/20">
+            <div class="relative">
+                <input type="text" placeholder="搜索寺庙..."
+                    class="w-full pl-10 pr-4 py-2 rounded-full bg-white border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50">
+                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+            </div>
+        </div>
+
+             
+    </header>
+
+  <main>
+    <!-- 英雄区域 -->
+    <section id="home" class="relative h-[80vh] min-h-[600px] flex items-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="../AAA/images/3.2jz/1 (1).png" alt="寺庙装饰艺术" class="w-full h-full object-cover">
+        
+      </div>
+      
+      
+      
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <a href="#intro" class="flex flex-col items-center">
+          
+          <i class="fa fa-angle-down text-2xl"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 简介部分 -->
+    <section id="intro" class="py-20 bg-[#f5f2eb]">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">寺庙装饰艺术概述</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            寺庙装饰艺术是人类文明中独特而珍贵的艺术形式，它融合了美学追求和工艺技艺，是不同文化背景下人们精神世界的视觉表达。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/3.2jz/1 (2).png" alt="宗教艺术" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">精神文化载体</h3>
+              <p class="text-gray-600">
+                寺庙装饰艺术是精神信仰的视觉化表达，通过壁画、雕塑、彩绘等形式传达神话故事和修行理念，是人们精神交流的重要媒介。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/3.2jz/1 (3).png" alt="文化交流" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">文化交流见证</h3>
+              <p class="text-gray-600">
+                寺庙装饰艺术常常受到不同文化和艺术风格的影响，是文化交流和融合的见证。从建筑风格到装饰元素，都能看到不同文明相互碰撞和交融的痕迹。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group">
+            <div class="h-56 overflow-hidden">
+              <img src="../AAA/images/3.2jz/1 (4).png" alt="工艺技艺" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">工艺技艺瑰宝</h3>
+              <p class="text-gray-600">
+                寺庙装饰艺术凝聚了古代工匠的智慧和技艺，从壁画绘制到木雕、石雕、金属工艺，每一种工艺都有其独特的技法和传承，是人类工艺技艺的瑰宝。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 历史渊源 -->
+    <section id="history" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+          <div class="md:w-1/2">
+            <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-6">历史渊源</h2>
+            <div class="w-20 h-1 bg-temple-gold mb-8"></div>
+            
+            <p class="text-gray-700 mb-6">
+              寺庙装饰艺术的历史可以追溯到人类最早的活动。从古代埃及的神庙到古希腊的帕特农神庙，从印度的佛教石窟到中国的敦煌莫高窟，寺庙装饰艺术始终伴随着人类的文明而发展。
+            </p>
+            
+            <p class="text-gray-700 mb-6">
+              在亚洲，寺庙装饰艺术传入中国、日本、韩国、东南亚等地，并与当地文化相结合，形成了各具特色的寺庙装饰风格。
+            </p>
+            
+            <p class="text-gray-700 mb-8">
+              中世纪的欧洲，哥特式教堂的兴起标志着寺庙装饰艺术的又一高峰。这些教堂以其高耸的尖塔、精美的花窗玻璃和雕塑装饰，展现了中世纪工匠的卓越技艺和热情。
+            </p>
+            
+            <div class="bg-temple-red/5 p-6 rounded-lg border-l-4 border-temple-gold">
+              <p class="text-gray-800 italic">
+                "寺庙装饰不仅仅是美化神圣空间，更是将信仰转化为可见、可触、可感的艺术形式，让人们在欣赏艺术的同时，也能感受到信仰的力量。"
+              </p>
+              <p class="text-temple-red font-semibold mt-2">—— 艺术史学者 李明远</p>
+            </div>
+          </div>
+          
+          <div class="md:w-1/2 grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="rounded-lg overflow-hidden shadow-lg transform translate-y-8">
+                <img src="../AAA/images/3.2jz/1 (15).png" alt="古代寺庙" class="w-full h-auto temple-frame mt-20">
+              </div>
+             
+            </div>
+            <div class="space-y-4">
+              <div class="rounded-lg overflow-hidden shadow-lg">
+                <img src="../AAA/images/3.2jz/1 (5).png" alt="哥特式教堂" class="w-full h-auto temple-frame">
+              </div>
+              <div class="rounded-lg overflow-hidden shadow-lg transform translate-y-8">
+                <img src="../AAA/images/3.2jz/1 (12).png" alt="伊斯兰清真寺" class="w-full h-auto temple-frame">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 艺术特色 -->
+    <section id="art" class="py-20 bg-[#f5f2eb]">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">艺术特色</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            寺庙装饰艺术具有独特的审美特征和艺术风格，融合了宗教、哲学、艺术和科学的元素。以下是寺庙装饰艺术的几个显著特色。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <!-- 特色1 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-red/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-paint-brush text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">象征主义表达</h3>
+              <p class="text-gray-600">
+                寺庙装饰艺术大量使用象征主义手法，通过色彩、图案、造型等元素传达宗教教义和哲学思想。例如，莲花象征纯洁，狮子象征力量，菩提树象征觉悟。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 特色2 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-red/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-paint-brush text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">空间营造</h3>
+              <p class="text-gray-600">
+                寺庙装饰艺术注重空间的营造和利用，通过壁画、雕塑、建筑结构等元素创造出神圣、庄严、深邃的空间感，引导信徒进入宗教冥想状态。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 特色3 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-red/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-book text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">精湛工艺</h3>
+              <p class="text-gray-600">
+                寺庙装饰艺术需要精湛的工艺技艺，从壁画绘制到木雕、石雕、金属工艺，每一种工艺都有其独特的技法和传承。这些工艺技艺经过数百年甚至上千年的发展，达到了极高的水平。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 特色4 -->
+          <div class="flex gap-6">
+            <div class="bg-temple-red/10 p-4 rounded-lg shrink-0">
+              <i class="fa fa-book text-3xl text-temple-red"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-semibold text-temple-red mb-3">文化融合</h3>
+              <p class="text-gray-600">
+                寺庙装饰艺术常常受到不同文化和艺术风格的影响，是文化交流和融合的产物。例如，中国的佛教寺庙装饰融合了印度、中亚和中原地区的艺术元素，形成了独特的风格。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 地区风格介绍 -->
+        <div class="mt-16">
+          <h3 class="text-2xl font-serif font-semibold text-temple-red text-center mb-10">主要地区风格</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div class="h-56 overflow-hidden">
+                <img src="../AAA/images/3.2jz/1 (6).png" alt="东亚风格" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h4 class="text-xl font-serif font-semibold text-temple-red mb-2">东亚风格</h4>
+                <p class="text-gray-600">
+                  以中国、日本、韩国为代表，注重线条的流畅和意境的营造，强调人与自然的和谐。装饰元素包括壁画、木雕、陶瓷等，色彩淡雅而不失庄重。
+                </p>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div class="h-56 overflow-hidden">
+                <img src="../AAA/images/3.2jz/1 (14).png" alt="南亚风格" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h4 class="text-xl font-serif font-semibold text-temple-red mb-2">南亚风格</h4>
+                <p class="text-gray-600">
+                  以印度、尼泊尔为代表，风格华丽繁复，充满象征主义元素。装饰以石雕、壁画为主，色彩鲜艳，造型夸张，强调宗教的神秘和庄严。
+                </p>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div class="h-56 overflow-hidden">
+                <img src="../AAA/images/3.2jz/1 (13).png" alt="欧洲风格" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h4 class="text-xl font-serif font-semibold text-temple-red mb-2">欧洲风格</h4>
+                <p class="text-gray-600">
+                  以哥特式、巴洛克式教堂为代表，注重空间的高耸和光线的运用，装饰以雕塑、花窗玻璃为主，展现了精湛的工艺和宗教热情。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 典型元素 -->
+    <section id="elements" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-serif font-bold text-temple-red mb-4">典型装饰元素</h2>
+          <div class="w-20 h-1 bg-temple-gold mx-auto mb-6"></div>
+          <p class="max-w-3xl mx-auto text-gray-700">
+            寺庙装饰艺术包含丰富多样的元素，这些元素不仅具有装饰性，更蕴含着深刻的宗教和文化意义。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- 元素1 -->
+          <div class="bg-[#f5f2eb] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-64">
+              <img src="../AAA/images/3.2jz/1.png" alt="壁画" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center bg-temple-red/70 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-white text-xl font-semibold">壁画</h3>
+              </div>
+            </div>
+            <div class="p-6">
+              <h4 class="text-xl font-serif font-semibold text-temple-red mb-3">壁画</h4>
+              <p class="text-gray-600">
+                壁画是寺庙装饰中最常见的形式之一，通过绘画讲述宗教故事、展示历史场景和描绘神圣形象。壁画技法多样，包括湿壁画、干壁画、蛋彩画等。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 元素2 -->
+          <div class="bg-[#f5f2eb] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-64">
+              <img src="../AAA/images/3.2jz/1 (7).png" alt="雕塑" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center bg-temple-red/70 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-white text-xl font-semibold">雕塑</h3>
+              </div>
+            </div>
+            <div class="p-6">
+              <h4 class="text-xl font-serif font-semibold text-temple-red mb-3">雕塑</h4>
+              <p class="text-gray-600">
+                雕塑是寺庙装饰的重要组成部分，包括佛像、神像、神兽等。材质多样，有石雕、木雕、金属雕、泥塑等，每一种材质都有其独特的表现力。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 元素3 -->
+          <div class="bg-[#f5f2eb] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-64">
+              <img src="../AAA/images/3.2jz/1 (9).png" alt="彩绘" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center bg-temple-red/70 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-white text-xl font-semibold">彩绘</h3>
+              </div>
+            </div>
+            <div class="p-6">
+              <h4 class="text-xl font-serif font-semibold text-temple-red mb-3">彩绘</h4>
+              <p class="text-gray-600">
+                彩绘是在建筑结构、家具、器物等表面进行绘画装饰的工艺。寺庙中的彩绘通常色彩鲜艳，图案精美，具有很强的装饰性和艺术感染力。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 元素4 -->
+          <div class="bg-[#f5f2eb] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-64">
+              <img src="../AAA/images/3.2jz/1 (8).png" alt="浮雕" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center bg-temple-red/70 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-white text-xl font-semibold">浮雕</h3>
+              </div>
+            </div>
+            <div class="p-6">
+              <h4 class="text-xl font-serif font-semibold text-temple-red mb-3">浮雕</h4>
+              <p class="text-gray-600">
+                浮雕是在平面上雕刻出凸起的图像或图案的艺术形式。寺庙中的浮雕常用于门廊、墙壁、柱子等部位，题材多为宗教故事、神话传说和吉祥图案。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 元素5 -->
+          <div class="bg-[#f5f2eb] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-64">
+              <img src="../AAA/images/3.2jz/1 (10).png" alt="花窗玻璃" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center bg-temple-red/70 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-white text-xl font-semibold">花窗玻璃</h3>
+              </div>
+            </div>
+            <div class="p-6">
+              <h4 class="text-xl font-serif font-semibold text-temple-red mb-3">花窗玻璃</h4>
+              <p class="text-gray-600">
+                花窗玻璃是哥特式教堂的标志性装饰元素，通过彩色玻璃拼接成各种图案和故事。阳光透过花窗玻璃洒在教堂内，营造出神秘而庄严的氛围。
+              </p>
+            </div>
+          </div>
+          
+          <!-- 元素6 -->
+          <div class="bg-[#f5f2eb] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-64">
+              <img src="../AAA/images/3.2jz/1 (11).png" alt="金箔装饰" class="w-full h-full object-cover">
+              <div class="absolute inset-0 flex items-center justify-center bg-temple-red/70 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <h3 class="text-white text-xl font-semibold">金箔装饰</h3>
+              </div>
+            </div>
+            <div class="p-6">
+              <h4 class="text-xl font-serif font-semibold text-temple-red mb-3">金箔装饰</h4>
+              <p class="text-gray-600">
+                金箔装饰是在雕塑、壁画、建筑构件等表面贴上金箔的工艺，使装饰对象更加华丽耀眼。金箔装饰在寺庙中常用于佛像、背光、匾额等部位。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- 第七板块：中国古寺底部导航 -->
+     <section id="footerNav" class="relative h-96 md:h-[50vh] overflow-hidden bg-black">
+        <div class="absolute inset-0">
+            <img src="../AAA/images/7/0.png" alt="7" class="w-full h-full object-fit">
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div class="relative z-10 h-full flex flex-col justify-between">
+            <div class="px-6 md:px-12 pt-48">
+                <div class="flex items-center">
+                    <img src="../AAA/images/logo2.png" alt="中国古寺标志" class="h-[clamp(2rem,5vw,3rem)] w-auto rounded-md object-cover mr-4">
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">中国古寺</h2>
+                </div>
+            </div>
+                        
+<!-- 新增分类导航栏 -->
+<div class="px-8 md:px-16 pb-12 w-full">
+    <div class="flex flex-wrap justify-center gap-6 md:gap-8 pt-0 pl-10">
+        <!-- 艺术与文物 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="yishuwenwu.html" class="px-4 py-2 pr-0 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    艺术与文物
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="yishuwenwu.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文物雕塑</a>
+                    <a href="yishuwenwu.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">壁画经卷</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 名山与节庆 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="chaoshneg.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    名山与节庆
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="chaoshneg.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">四大名山</a>
+                    <a href="chaoshneg.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">节日庆典</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 文学与传播 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="wenxuechuanbo.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    文学与传播
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文化作品</a>
+                    <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">影视游戏</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 建筑文化 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="jianzhu.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    建筑文化
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-48 flex flex-col pl-5 translate-x-1">
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-10">建筑风格</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">布局解析</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">装饰艺术</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">著名案例</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 饮食文化 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="yinshi.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    饮食文化
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                    <a href="yinshi.html#vegetarian" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">素斋流派</a>
+                    <a href="yinshi.html#tea-culture" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">径山茶宴</a>
+                    <a href="yinshi.html#daily-routine" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">日常作息</a>
+                </div>
+            </div>
+        </div>
+         
+        <!-- 现代寺庙与社会 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="xiandai.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    现代寺庙与社会
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                    <a href="xiandai.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">古寺公益</a>
+                    <a href="xiandai.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文创产品</a>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-16 text-center pb-4">
+    <div class="flex justify-center space-x-8 mb-8">
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-weixin text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-weibo text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-youtube-play text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-instagram text-2xl"></i>
+        </a>
+    </div>
+</div>
+    
+</section>
+<!-- 返回顶部按钮 -->
+<button id="backToTop" class="fixed bottom-6 right-6 bg-temple-red hover:bg-temple-red/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 opacity-0 pointer-events-none z-50">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+  <script>
+  // 获取返回顶部按钮元素
+  const backToTopButton = document.getElementById('backToTop');
+      
+      // 监听页面滚动事件
+      window.addEventListener('scroll', () => {
+          // 当页面滚动超过200像素时显示按钮
+          if (window.scrollY > 200) {
+              backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+              backToTopButton.classList.add('opacity-100', 'pointer-events-auto');
+          } else {
+              backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+              backToTopButton.classList.remove('opacity-100', 'pointer-events-auto');
+          }
+      });
+      
+      // 点击按钮时平滑滚动到页面顶部
+      backToTopButton.addEventListener('click', () => {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      });
+    </script>

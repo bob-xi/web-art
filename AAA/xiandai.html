@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国古寺 - 探索千年文化遗产</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        temple: {
+                            red: '#680f25',      // 寺庙红墙
+                            gold: '#D4AF37',     // 寺庙金色
+                            wood: '#8B4513',     // 寺庙木色
+                            stone: '#A9A9A9',    // 寺庙石色
+                            earth: '#8B5A2B',    // 寺庙土色
+                            paper: '#F5F2EB',    // 寺庙纸张色
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: '华文中宋';
+            src: local('STZhongsong'), local('华文宋体'), local('SimSun');
+            font-display: swap;
+        }
+        
+        .font-stylish {
+            font-family: '华文中宋', 'STZhongsong', '华文宋体', 'SimSun', serif;
+        }
+    </style>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            .text-shadow-sm {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+            .transition-transform-opacity {
+                transition-property: transform, opacity;
+            }
+            .backdrop-blur {
+                backdrop-filter: blur(8px);
+            }
+            .mask-gradient {
+                mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            }
+        }
+    </style>
+
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #919090;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a02721;
+        }
+
+        /* 轮播图动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* 图片悬停效果 */
+        .img-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .img-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 加载动画 */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #C22E28;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+            background-repeat: no-repeat;
+        }
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .carousel-inner {
+            display: flex;
+            width: 100%;
+            transition: transform 0.6s ease-in-out;
+        }
+        .item {
+            flex: 0 0 100%;
+            height: 55vh;
+        }
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 80px;
+            z-index: 10;
+            cursor: pointer;
+        }
+        .left {
+            left: 25px;
+        }
+        .right {
+            right: 25px;
+        }
+
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            z-index: 15;
+            width: 60%;
+            padding-left: 0;
+            margin-left: -30%;
+            text-align: center;
+            list-style: none;
+        }
+
+        .dots > li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 1px;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0);
+            border: 1px solid #fff;
+            border-radius: 10px;
+        }
+
+        .dots .active {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+            background-color: #fff;
+        }
+    </style>
+    <style>
+    /* 移除子分类背景和边框 */
+    .absolute {
+        background: none !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+    
+    /* 优化子分类间距 */
+    .absolute a {
+        padding: 0.25rem 0 !important;
+        margin-bottom: 0.25rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .absolute a:last-child {
+        border-bottom: none !important;
+    }
+    
+    /* 移动端优化 */
+    @media (max-width: 768px) {
+        .absolute {
+            position: relative !important;
+            left: 0 !important;
+            transform: none !important;
+            width: 100% !important;
+            margin-top: 0.5rem !important;
+        }
+    }
+</style>
+<style>
+    /* Banner 区域 */
+
+.banner {
+ /* 给 banner 设个固定高度或最小高度，也可根据需求用其他布局控制 */
+ min-height: 300px; 
+ overflow: hidden; /* 防止图片溢出 */
+}
+.banner-text img {
+ width: 100%;  /* 宽度填满父容器 */
+ height: auto; /* 高度自动按比例缩放 */
+ display: block; /* 去掉默认间隙 */
+}
+</style>
+<style>
+    /* 全局样式重置，简化默认边距 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "微软雅黑", sans-serif;
+      background: #fff;
+    }
+    
+    /* 网格容器：2列布局，自动适配宽度 */
+    .exhibit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      grid-gap: 15px; /* 减小间距 */
+      max-width: 900px; /* 减小最大宽度 */
+      margin: 0 auto;
+    }
+    
+    /* 卡片通用样式 */
+    .exhibit-card {
+      display: flex;
+      height: 400px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15px; /* 减小内边距 */
+      border: 1px solid #eee;
+      border-radius: 6px; /* 减小圆角 */
+      background: #fff;
+    }
+    
+    /* 标题装饰（左侧金色图案） */
+    .card-title {
+      position: relative;
+      padding-left: 25px; /* 减小左侧填充 */
+      margin-bottom: 8px; /* 减小底部间距 */
+      font-size: 16px; /* 减小字体大小 */
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .card-title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px; /* 减小装饰图标大小 */
+      height: 18px;
+      background: url('../AAA/images/xiandai/按钮.png') no-repeat center; 
+      background-size: contain;
+    }
+    
+    /* 图片自适应 */
+    .exhibit-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px; /* 减小圆角 */
+      margin-bottom: 10px; /* 减小底部间距 */
+    }
+    
+    /* 文本段落样式 */
+    .exhibit-card p {
+      line-height: 1.5; /* 减小行高 */
+      color: #666;
+      margin-bottom: 10px; /* 减小底部间距 */
+      font-size: 14px; /* 减小字体大小 */
+    }
+    
+    /* 更多按钮样式 */
+    .more-btn {
+      align-self: flex-end;
+      color: #b8965b; 
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px; /* 减小字体大小 */
+    }
+    
+    .more-btn:hover {
+      text-decoration: underline;
+    }
+    
+    /* 响应式：小屏幕变1列 */
+    @media (max-width: 768px) {
+      .exhibit-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+<style>
+   
+    .img-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+      position: relative;
+      margin-left: 220px;
+    }
+
+    /* 图片通用样式 */
+    .img-item {
+      width: 200px; 
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      object-fit: cover;
+      position: relative;
+      margin: 0 -40px; 
+      cursor: pointer;
+    }
+
+    /* 激活状态的图片样式 */
+    .img-item.active {
+      transform: scale(1.3);
+      z-index: 3;
+    }
+
+    /* 相邻图片样式 */
+    .img-item.neighbor {
+      transform: scale(0.9);
+      z-index: 2;
+    }
+
+    /* 远处图片样式 */
+    .img-item.distant {
+      transform: scale(0.7);
+      z-index: 1;
+    }
+
+    /* 箭头按钮样式 */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255,255,255,0.8);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      z-index: 4;
+    }
+
+    .arrow:hover {
+      background-color: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .arrow-left {
+      left: 20px;
+    }
+
+    .arrow-right {
+      right: 20px;
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-temple-paper text-gray-800 scroll-smooth">
+     <!-- 导航栏 -->
+     <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="bg-white/10 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-2">
+                <a href="#" class="text-temple-red text-2xl font-bold flex items-center">
+                    <!-- 增大后的logo -->
+                    <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-12 w-auto rounded-md mr-2 object-cover">
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">现代寺庙与社会</h2>
+                </a>
+            </div>
+
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex items-center space-x-16">
+                <a href="index.html#about"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">首页</a>
+                <a href="#intro"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">古寺公益</a>
+                <a href="#corner"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">文创产品</a>
+               
+                <a href="contact.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">联系我们</a>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="搜索寺庙..."
+                        class="pl-10 pr-4 py-2 rounded-full bg-white/0 border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50 transition-all duration-300 w-48 focus:w-64">
+                    <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+                </div>
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden flex items-center space-x-3">
+                <button id="searchBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-search"></i>
+                </button>
+                <button id="menuBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 移动端搜索框 -->
+        <div id="mobileSearch"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md px-4 py-3 border-b border-temple-red/20">
+            <div class="relative">
+                <input type="text" placeholder="搜索寺庙..."
+                    class="w-full pl-10 pr-4 py-2 rounded-full bg-white border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50">
+                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+            </div>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/98 backdrop-blur-md absolute w-full shadow-lg">
+            <div class="flex flex-col p-8 space-y-5">
+                <a href="index.html#about"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    首页
+                </a>
+                <a href="#intro"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    古寺公益
+                </a>
+                <a href="#corner"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    文创产品
+                </a>
+                
+                <a href="contact.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    联系我们
+                </a>
+            </div>
+        </div>
+        
+    </header>
+
+
+    <!-- 第一板块：轮播图背景 -->
+    <section class="banner">
+        <div class="banner-text">
+          <img src="../AAA/images/xiandai/1.png" alt="">
+        </div>
+      </section>
+
+
+ <!-- 第四板块：古寺介绍 -->
+<section id="intro" class="py-20">
+                
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16 flex flex-col items-center">
+                        <!-- 标题部分，整体稍微靠左 -->
+                        <div class="flex flex-col items-start mb-1 w-full max-w-1.1xl">
+                            <!-- 图标和标题文字的组合 -->
+                            <div class="flex items-center mb-1">
+                                <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-[clamp(2rem,6vw,3rem)] w-auto rounded-md object-cover mt-1 mr-2">
+                                <h2 class="text-[clamp(1.8rem,5vw,2.5rem)] font-bold text-temple-red font-sans-serif" style="font-family: '华文中宋', sans-serif;">古寺公益</h2>
+    
+                            </div>
+                            <!-- 英文注释 - 位于标题下方 -->
+                            <span class="text-gray-600 max-w-1.2xl text-xs uppercase tracking-wider mt-0.5">GU SI GONG YI</span>
+                            <!-- 分隔线 - 位于标题下方 -->
+                            <div class="w-20 h-1 max-w-1.2xl bg-temple-gold mt-0.5"></div>
+                            <!-- 描述文字 - 位于标题下方 -->
+                            <p class="text-gray-600 max-w-2xl mt-0.5">流芳百世仁者心,行止端正善行行</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="img-container">
+                    <!-- 这里替换成你实际的图片路径 -->
+                    <img src="../AAA/images/xiandai/5.png" alt="图片1" class="img-item" />
+                    <img src="../AAA/images/xiandai/6.png" alt="图片2" class="img-item" />
+                    <img src="../AAA/images/xiandai/7.png" alt="主图" class="img-item" />
+                    <img src="../AAA/images/xiandai/8.png" alt="图片4" class="img-item" />
+                    <img src="../AAA/images/xiandai/9.png" alt="图片5" class="img-item" />
+                    
+                    <button class="arrow arrow-left" id="prevBtn">&lt;</button>
+                    <button class="arrow arrow-right" id="nextBtn">&gt;</button>
+                  </div>
+                
+                  <script>
+                    const container = document.getElementById('container');
+                    const imgs = document.querySelectorAll('.img-item');
+                    const prevBtn = document.getElementById('prevBtn');
+                    const nextBtn = document.getElementById('nextBtn');
+                    let currentIndex = 2; // 初始中间图片索引
+                
+                    // 更新所有图片的样式
+                    function updateImgStyles() {
+                      imgs.forEach((img, index) => {
+                        // 移除所有图片的现有样式类
+                        img.classList.remove('active', 'neighbor', 'distant');
+                        
+                        // 计算与当前激活图片的距离
+                        const distance = Math.abs(index - currentIndex);
+                        
+                        // 根据距离应用不同的样式类
+                        if (distance === 0) {
+                          img.classList.add('active');
+                        } else if (distance === 1) {
+                          img.classList.add('neighbor');
+                        } else {
+                          img.classList.add('distant');
+                        }
+                      });
+                    }
+                
+                    // 切换到上一张图片
+                    function prevImg() {
+                      currentIndex = (currentIndex - 1 + imgs.length) % imgs.length;
+                      updateImgStyles();
+                    }
+                
+                    // 切换到下一张图片
+                    function nextImg() {
+                      currentIndex = (currentIndex + 1) % imgs.length;
+                      updateImgStyles();
+                    }
+                
+                    // 点击图片直接激活
+                    imgs.forEach((img, index) => {
+                      img.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateImgStyles();
+                      });
+                    });
+                
+                    // 绑定按钮事件
+                    prevBtn.addEventListener('click', prevImg);
+                    nextBtn.addEventListener('click', nextImg);
+                
+                    // 添加键盘导航支持
+                    document.addEventListener('keydown', (e) => {
+                      if (e.key === 'ArrowLeft') prevImg();
+                      if (e.key === 'ArrowRight') nextImg();
+                    });
+                
+                    // 初始化样式
+                    updateImgStyles();
+                  </script>
+</section>
+ 
+    <!-- 第六板块：古寺一隅（轮播图） -->
+    <section id="corner" class="py-20">
+             <div class="container mx-auto px-4">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16 flex flex-col items-center">
+                        <!-- 标题部分，整体稍微靠左 -->
+                        <div class="flex flex-col items-start mb-1 w-full max-w-1.1xl">
+                            <!-- 图标和标题文字的组合 -->
+                            <div class="flex items-center mb-1">
+                                <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-[clamp(2rem,6vw,3rem)] w-auto rounded-md object-cover mt-1 mr-2">
+                                <h2 class="text-[clamp(1.8rem,5vw,2.5rem)] font-bold text-temple-red font-sans-serif" style="font-family: '华文中宋', sans-serif;">文创产品</h2>
+    
+                            </div>
+                            <!-- 英文注释 - 位于标题下方 -->
+                            <span class="text-gray-600 max-w-1.2xl text-xs uppercase tracking-wider mt-0.5">WEN CHUAN CHAN PIN</span>
+                            <!-- 分隔线 - 位于标题下方 -->
+                            <div class="w-20 h-1 max-w-1.2xl bg-temple-gold mt-0.5"></div>
+                            <!-- 描述文字 - 位于标题下方 -->
+                            <p class="text-gray-600 max-w-2xl mt-0.5">满眼生机转化钧，天工人巧日争新</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="exhibit-grid">
+                    <!-- 卡片1：长江流域青铜文明特展 -->
+                    <div class="exhibit-card" style="height: 200px">
+                        <h2 class="card-title">数字藏经阁</h2>
+                        <p>数字藏经阁‌主要指敦煌研究院与腾讯联合打造的“数字藏经洞”项目，它是全球首个超时空参与式博物馆，通过游戏引擎、高清扫描和云技术1:1复原敦煌藏经洞场景。</p>
+                    </div>
+                    
+                    <!-- 卡片2：中国传统医药文物特展（文字版） - 已添加放大效果 -->
+                    <a href="sanjiba.html" class="block relative h-full">
+                        <div class="exhibit-card image-card" 
+                             style="background-image: url('../AAA/images/xiandai/10.png'); height: 200px; background-size: cover; background-position: center; position: relative; transition: transform 0.3s ease;">
+                        </div>
+                    </a>
+                    
+                    <!-- 卡片3：中国传统医药文物特展（海报版） - 已添加放大效果 -->
+                    <a href="sanjijiu.html" class="block relative h-full">
+                        <div class="exhibit-card image-card" 
+                             style="background-image: url('../AAA/images/xiandai/11.png'); background-size: cover; background-position: center; position: relative; transition: transform 0.3s ease;">
+                        </div>
+                    </a>
+                    
+                    <!-- 卡片4：发现中医之美海报 -->
+                    <div class="exhibit-card">
+                        <h2 class="card-title">金阁键盘</h2>
+                        <p>金阁寺灵感键盘，这款键盘融合了古典建筑美学与现代设计精髓，键盘的每一个细节都充满了庭园的精致感。想象一下，一座金碧辉煌的寺庙变成了你的键盘！这款键盘采用了金阁寺的经典元素——金色的外观，映射出古老寺庙的辉煌。每个按键都闪烁着优雅的光芒，让你的办公桌瞬间提升档次。精细的图案雕刻，仿佛是庭园中的一石一木，带你感受静谧的东方美学。虽然外观古典，但键盘在功能上完全现代化。快速而准确的按键反应，确保了无论工作还是娱乐都能有出色的表现。这款键盘不仅是工作的好帮手，更是一件艺术品。每一次敲击，都是对美的赞颂！</p>
+                    </div>
+                </div>
+                
+                <!-- 添加CSS样式实现图片放大效果 -->
+                <style>
+                    .image-card {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden; /* 隐藏超出容器的部分 */
+                    }
+                    
+                    .image-card:hover {
+                        transform: scale(1.05); /* 鼠标悬停时放大5% */
+                    }
+                </style>
+    </section>
+   
+
+     <!-- 第七板块：中国古寺底部导航 -->
+     <section id="footerNav" class="relative h-96 md:h-[50vh] overflow-hidden bg-black">
+        <div class="absolute inset-0">
+            <img src="../AAA/images/7/0.png" alt="7" class="w-full h-full object-fit">
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div class="relative z-10 h-full flex flex-col justify-between">
+            <div class="px-6 md:px-12 pt-48">
+                <div class="flex items-center">
+                    <img src="../AAA/images/logo2.png" alt="中国古寺标志" class="h-[clamp(2rem,5vw,3rem)] w-auto rounded-md object-cover mr-4">
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">中国古寺</h2>
+                </div>
+            </div>
+                        
+<!-- 新增分类导航栏 -->
+<div class="px-8 md:px-16 pb-12 w-full">
+    <div class="flex flex-wrap justify-center gap-6 md:gap-8 pt-0 pl-10">
+        <!-- 艺术与文物 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="yishuwenwu.html" class="px-4 py-2 pr-0 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    艺术与文物
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="yishuwenwu.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文物雕塑</a>
+                    <a href="yishuwenwu.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">壁画经卷</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 名山与节庆 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="chaoshneg.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    名山与节庆
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="chaoshneg.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">四大名山</a>
+                    <a href="chaoshneg.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">节日庆典</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 文学与传播 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="wenxuechuanbo.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    文学与传播
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文化作品</a>
+                    <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">影视游戏</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 建筑文化 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="jianzhu.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    建筑文化
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-48 flex flex-col pl-5 translate-x-1">
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-10">建筑风格</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">布局解析</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">装饰艺术</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">著名案例</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 饮食文化 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="yinshi.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    饮食文化
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                    <a href="yinshi.html#vegetarian" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">素斋流派</a>
+                    <a href="yinshi.html#tea-culture" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">径山茶宴</a>
+                    <a href="yinshi.html#daily-routine" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">日常作息</a>
+                </div>
+            </div>
+        </div>
+         
+        <!-- 现代寺庙与社会 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="xiandai.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    现代寺庙与社会
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                    <a href="xiandai.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">古寺公益</a>
+                    <a href="xiandai.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文创产品</a>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-16 text-center pb-4 ">
+    <div class="flex justify-center space-x-8 mb-8">
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-weixin text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-weibo text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-youtube-play text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-instagram text-2xl"></i>
+        </a>
+    </div>
+</div>
+    
+    <!-- 返回顶部按钮 -->
+<button id="backToTop" class="fixed bottom-6 right-6 bg-temple-red hover:bg-temple-red/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 opacity-0 pointer-events-none z-50">
+    <i class="fa fa-arrow-up"></i>
+</button>
+
+
+<script>
+// 导航栏滚动效果
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', function () {
+    if (window.scrollY > 50) {
+        navbar.classList.add('bg-temple-red/0', 'shadow-md'); // 修改为半透明背景
+        navbar.classList.remove('bg-transparent');
+
+        backToTop.classList.remove('opacity-0', 'pointer-events-none');
+        backToTop.classList.add('opacity-100', 'pointer-events-auto');
+    } else {
+        navbar.classList.remove('bg-temple-red/90', 'shadow-md');
+        navbar.classList.add('bg-transparent');
+
+        backToTop.classList.add('opacity-0', 'pointer-events-none');
+        backToTop.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+});
+
+// 移动端菜单
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click', function () {
+    mobileMenu.classList.toggle('hidden');
+    if (mobileMenu.classList.contains('hidden')) {
+        menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+    } else {
+        menuBtn.innerHTML = '<i class="fa fa-times"></i>';
+    }
+});
+
+// 获取返回顶部按钮元素
+const backToTopButton = document.getElementById('backToTop');
+    
+    // 监听页面滚动事件
+    window.addEventListener('scroll', () => {
+        // 当页面滚动超过200像素时显示按钮
+        if (window.scrollY > 200) {
+            backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+            backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+    });
+    
+    // 点击按钮时平滑滚动到页面顶部
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+// 页面加载完成后执行
+window.addEventListener('load', () => {
+    animateHeroSection();
+
+    // 添加滚动动画
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+
+            if (elementPosition < screenPosition) {
+                element.classList.add('animate-in');
+            }
+        });
+    };
+
+    // 初始检查
+    animateOnScroll();
+
+    // 滚动时检查
+    window.addEventListener('scroll', animateOnScroll);
+});
+</script>
+
+</body>
+
+</html>

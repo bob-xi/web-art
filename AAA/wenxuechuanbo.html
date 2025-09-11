@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国古寺 - 探索千年文化遗产</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        temple: {
+                            red: '#680f25',      // 寺庙红墙
+                            gold: '#D4AF37',     // 寺庙金色
+                            wood: '#8B4513',     // 寺庙木色
+                            stone: '#A9A9A9',    // 寺庙石色
+                            earth: '#8B5A2B',    // 寺庙土色
+                            paper: '#F5F2EB',    // 寺庙纸张色
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: '华文中宋';
+            src: local('STZhongsong'), local('华文宋体'), local('SimSun');
+            font-display: swap;
+        }
+        
+        .font-stylish {
+            font-family: '华文中宋', 'STZhongsong', '华文宋体', 'SimSun', serif;
+        }
+    </style>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            .text-shadow-sm {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+            .transition-transform-opacity {
+                transition-property: transform, opacity;
+            }
+            .backdrop-blur {
+                backdrop-filter: blur(8px);
+            }
+            .mask-gradient {
+                mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            }
+        }
+    </style>
+
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #919090;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a02721;
+        }
+
+        /* 轮播图动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* 图片悬停效果 */
+        .img-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .img-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 加载动画 */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #C22E28;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+            background-repeat: no-repeat;
+        }
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .carousel-inner {
+            display: flex;
+            width: 100%;
+            transition: transform 0.6s ease-in-out;
+        }
+        .item {
+            flex: 0 0 100%;
+            height: 55vh;
+        }
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 80px;
+            z-index: 10;
+            cursor: pointer;
+        }
+        .left {
+            left: 25px;
+        }
+        .right {
+            right: 25px;
+        }
+
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            z-index: 15;
+            width: 60%;
+            padding-left: 0;
+            margin-left: -30%;
+            text-align: center;
+            list-style: none;
+        }
+
+        .dots > li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 1px;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0);
+            border: 1px solid #fff;
+            border-radius: 10px;
+        }
+
+        .dots .active {
+            width: 12px;
+            height: 12px;
+            margin: 0;
+            background-color: #fff;
+        }
+    </style>
+    <style>
+    /* 移除子分类背景和边框 */
+    .absolute {
+        background: none !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+    
+    /* 优化子分类间距 */
+    .absolute a {
+        padding: 0.25rem 0 !important;
+        margin-bottom: 0.25rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .absolute a:last-child {
+        border-bottom: none !important;
+    }
+    
+    /* 移动端优化 */
+    @media (max-width: 768px) {
+        .absolute {
+            position: relative !important;
+            left: 0 !important;
+            transform: none !important;
+            width: 100% !important;
+            margin-top: 0.5rem !important;
+        }
+    }
+</style>
+<style>
+    /* 模拟背景图，替换为实际高清雪景寺庙图 */
+    .hero-section {
+      background: url('https://via.placeholder.com/1920x600?text=Temple+Background') no-repeat center center/cover;
+      min-height: 600px;
+    }
+    /* 深色导航栏背景 */
+    .nav-bg {
+      background-color: #1a1a1a;
+    }
+  </style>
+ <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'elegant': ['"Ma Shan Zheng"', 'cursive', 'sans-serif'],
+          },
+          colors: {
+            'temple-red': '#8C1515',
+            'temple-gold': '#D4AF37',
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .writing-mode-vertical-rl {
+        writing-mode: vertical-rl;
+      }
+      .text-shadow-sm {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+    }
+  </style>
+    
+</head>
+
+<body class="font-sans bg-[#f5f2eb] text-gray-800 scroll-smooth">
+     <!-- 导航栏 -->
+     <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="bg-white/10 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-2">
+                <a href="#" class="text-temple-red text-2xl font-bold flex items-center">
+                    <!-- 增大后的logo -->
+                    <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-12 w-auto rounded-md mr-2 object-cover">
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">文学与传播</h2>
+                </a>
+            </div>
+
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex items-center space-x-16">
+                <a href="index.html#about"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">首页</a>
+                <a href="#intro"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">文学作品</a>
+                <a href="#corner"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">影视游戏</a>
+               
+                <a href="contact.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">联系我们</a>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="hidden md:flex items-center space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="搜索寺庙..."
+                        class="pl-10 pr-4 py-2 rounded-full bg-white/0 border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50 transition-all duration-300 w-48 focus:w-64">
+                    <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+                </div>
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden flex items-center space-x-3">
+                <button id="searchBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-search"></i>
+                </button>
+                <button id="menuBtn" class="text-temple-red text-xl focus:outline-none">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 移动端搜索框 -->
+        <div id="mobileSearch"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md px-4 py-3 border-b border-temple-red/20">
+            <div class="relative">
+                <input type="text" placeholder="搜索寺庙..."
+                    class="w-full pl-10 pr-4 py-2 rounded-full bg-white border border-temple-red/30 focus:outline-none focus:ring-2 focus:ring-temple-red/50 text-temple-red placeholder-temple-red/50">
+                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-temple-red/70"></i>
+            </div>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/98 backdrop-blur-md absolute w-full shadow-lg">
+            <div class="flex flex-col p-8 space-y-5">
+                <a href="index.html#about"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    首页
+                </a>
+                <a href="#intro"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    文学作品
+                </a>
+                <a href="#corner"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    影视游戏
+                </a>
+                
+                <a href="contact.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
+                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    联系我们
+                </a>
+            </div>
+        </div>
+        
+    </header>
+
+
+    <!-- 第一板块：轮播图背景 -->
+    <section class="banner">
+        <div class="banner-text">
+          <img src="../AAA/images/wenhua/2.png" alt="">
+        </div>
+      </section>
+     
+ <!-- 内容主区域 -->
+ <main class="container mx-auto px-4 py-8 flex flex-col md:flex-row">
+<!-- 左侧：诗词中的寺庙（可自定义背景图） -->
+<div id="intro" class="md:w-1/2 mb-6 md:mb-0 md:mr-6 relative">
+    <!-- 左侧背景图（保留原设置） -->
+    <div class="absolute inset-0 z-0" style="background-image: url('../AAA/images/wenhua/4.png'); background-size: cover; opacity: 0.8;"></div>
+    
+    <!-- 左侧白色内容区 -->
+    <div class="relative z-10 bg-white p-6 rounded-lg shadow-xl">
+        <!-- 标题部分 -->
+        <div class="text-center mb-10 flex flex-col items-center">
+            <div class="flex flex-col items-start mb-4 w-full max-w-1.1xl">
+                <div class="flex items-center mb-2">
+                    <img src="../AAA/images/logo.png" alt="中国古寺标志"class="h-[clamp(2rem,6vw,3rem)] w-auto rounded-md object-cover mt-1 mr-2">
+                    <h2 class="text-[clamp(1.8rem,5vw,2.5rem)] font-bold text-temple-red font-sans-serif" style="font-family: '华文中宋', sans-serif;">文学作品</h2>
+                </div>
+                <span class="text-gray-600 max-w-1.2xl text-xs uppercase tracking-wider mt-0.5">WEN XUE ZUO PIN</span>
+                <div class="w-20 h-1 max-w-1.2xl bg-temple-gold mt-0.5 mb-3"></div>
+                <p class="text-gray-600 max-w-2xl mt-0.5">只闻花香,不谈悲喜；饮茶颂书,不争朝夕</p>
+            </div>
+        </div>
+        
+        <!-- 左侧两张图片（左右布局，白色背景内） -->
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-6">
+            <div class="w-full md:w-1/2">
+                <img src="../AAA/images/wenhua/3.png" alt="诗人1" class="w-full h-auto rounded mb-2 shadow-md">
+                <p class="text-center text-gray-700">王维</p>
+                <p class="text-sm text-gray-600">王维（693年或694年或701年—761年），字摩诘，号摩诘居士，王维不仅参禅悟理，还精通诗、书、画、音乐等。以诗名盛于开元、天宝年间，有“诗佛”之称。其书画特臻其妙，后人推其为“南宗山水画之祖”。</p>
+            </div>
+            <div class="w-full md:w-1/2">
+                <img src="../AAA/images/wenhua/5.png" alt="诗人2" class="w-full h-auto rounded mb-2 shadow-md">
+                <p class="text-center text-gray-700">苏轼</p>
+                <p class="text-sm text-gray-600">苏轼（1037年—1101年），字子瞻，又字和仲，号铁冠道人、东坡居士，世称苏东坡。北宋文学家，书法家、画家，历史治水名人。与父苏洵、弟苏辙三人并称“三苏”。</p>
+            </div>
+        </div>
+        
+        <!-- 新增：图片与诗词组合区域 -->
+        <div class="mt-8 rounded-lg overflow-hidden shadow-lg relative group">
+            <img 
+                src="../AAA/images/wenhua/4.png" 
+            >
+            
+<!-- 诗词内容移动到图片上 -->
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-300 flex items-start justify-end pr-16 pt-24">
+    <div class="writing-mode-vertical-rl text-left space-x-6 font-elegant text-shadow-sm text-black">
+        <p class="text-3xl md:text-4xl font-medium ml-6">过香积寺</p>
+        <p class="text-xl md:text-2xl leading-relaxed mt-12 ">唐 王维</p>
+        <p class="text-xl md:text-2xl leading-relaxed">不知香积寺，数里入云峰。</p>
+        <p class="text-xl md:text-2xl leading-relaxed">古木无人径，深山何处钟。</p>
+        <p class="text-xl md:text-2xl leading-relaxed">泉声咽危石，日色冷青松。</p>
+        <p class="text-xl md:text-2xl leading-relaxed">薄暮空潭曲，安禅制毒龙。</p>
+    </div>
+</div>
+            
+        </div>
+    </div>
+</div>
+
+   <!-- 右侧：影游中的寺庙（统一深灰色背景） -->
+    <div id="corner" class="md:w-1/2 bg-gray-800 text-white p-6 rounded-lg shadow-xl">
+        <div class="text-center mb-10 flex flex-col items-center">
+            <!-- 标题部分 -->
+            <div class="flex flex-col items-start mb-4 w-full max-w-1.1xl">
+                <div class="flex items-center mb-2">
+                    <img src="../AAA/images/logo.png" alt="中国古寺标志"class="h-[clamp(2rem,6vw,3rem)] w-auto rounded-md object-cover mt-1 mr-2">
+                    <h2 class="text-[clamp(1.8rem,5vw,2.5rem)] font-bold text-temple-red font-sans-serif" style="font-family: '华文中宋', sans-serif;">影视游戏</h2>
+                </div>
+                <span class="text-gray-300 max-w-1.2xl text-xs uppercase tracking-wider mt-0.5">YING SHI YOU XI</span>
+                <div class="w-20 h-1 max-w-1.2xl bg-temple-gold mt-0.5 mb-3"></div>
+                <p class="text-gray-300 max-w-2xl mt-0.5">阶下花枝冷艳，堂前佛火微茫</p>
+            </div>
+        </div>
+        
+        <!-- 右侧两张图片（上下布局，统一深灰色背景） -->
+        <div class="space-y-4">
+            <div class="rounded-lg overflow-hidden shadow-md">
+                <img src="../AAA/images/wenhua/6.png" alt="游戏寺庙" class="w-full h-auto mb-3">
+                <h3 class="text-lg font-semibold mb-2">《黑神话·悟空》</h3>
+                <p class="text-sm text-gray-300">《黑神话：悟空》是由杭州游科互动科技有限公司开发，浙江出版集团数字传媒有限公司出版的西游题材单机动作角色扮演游戏。
+                    该作以中国四大名著之一、吴承恩所著长篇小说《西游记》为背景设定，借用《西游记》自身的故事作为前传，讲述取经之后孙悟空因放弃佛位引发天庭对其再次征伐之后的故事。在游戏中，玩家将扮演一位“天命人”，为了探寻昔日传说的真相，踏上一条充满危险与惊奇的西游之路。据不完全统计，《黑神话：悟空》的场景取景于中国的36个建筑古迹，如重庆大足石刻、杭州灵隐寺、济南灵岩寺墓塔林、四门塔等。</p>
+            </div>
+            <div class="rounded-lg overflow-hidden shadow-md">
+                <img src="../AAA/images/wenhua/7.png" alt="文化推广" class="w-full h-auto mb-3">
+                <h3 class="text-lg font-semibold mb-2">《甄嬛传》</h3>
+                <p class="text-sm text-gray-300">《甄嬛传》是2011年由北京电视艺术中心出品，改编自吴雪岚（流潋紫）所著小说《后宫·甄嬛传》，讲述了清朝雍正年间，女主角甄嬛选秀入宫，在皇后、华妃等几方势力夹击与宫闱斗争中，从不谙世事的闺阁少女成长为善于权谋的圣母皇太后的故事。该剧不蹈历史剧戏说的旧辙，也不循唯史实是瞻的图解式老路，实现了一次颇具文化意义的艺术突围。它让我们深切地认识到，文艺创作的基本规律不会过时，如果不能用好看的故事吸引人，用生动的典型感动人，用精良的制作愉悦人，再深刻的思想都无从谈起。其中的“甘露寺”取景于北京戒台寺。</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+    <!-- 第七板块：中国古寺底部导航 -->
+    <section id="footerNav" class="relative h-96 md:h-[50vh] overflow-hidden bg-black">
+        <div class="absolute inset-0">
+            <img src="../AAA/images/7/0.png" alt="7" class="w-full h-full object-fit">
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div class="relative z-10 h-full flex flex-col justify-between">
+            <div class="px-6 md:px-12 pt-48">
+                <div class="flex items-center">
+                    <img src="../AAA/images/logo2.png" alt="中国古寺标志" class="h-[clamp(2rem,5vw,3rem)] w-auto rounded-md object-cover mr-4">
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">中国古寺</h2>
+                </div>
+            </div>
+                        
+<!-- 新增分类导航栏 -->
+<div class="px-8 md:px-16 pb-12 w-full">
+    <div class="flex flex-wrap justify-center gap-6 md:gap-8 pt-0 pl-10">
+        <!-- 艺术与文物 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="yishuwenwu.html" class="px-4 py-2 pr-0 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    艺术与文物
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="yishuwenwu.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文物雕塑</a>
+                    <a href="yishuwenwu.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">壁画经卷</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 名山与节庆 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="chaoshneg.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    名山与节庆
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="chaoshneg.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">四大名山</a>
+                    <a href="chaoshneg.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">节日庆典</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 文学与传播 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="wenxuechuanbo.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    文学与传播
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-40 flex flex-col pl-5 translate-x-1">
+                    <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文化作品</a>
+                    <a href="wenxuechuanbo.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">影视游戏</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 建筑文化 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="jianzhu.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    建筑文化
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-48 flex flex-col pl-5 translate-x-1">
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-10">建筑风格</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">布局解析</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">装饰艺术</a>
+                    <a href="jianzhu.html#about" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">著名案例</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 饮食文化 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="yinshi.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    饮食文化
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                    <a href="yinshi.html#vegetarian" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">素斋流派</a>
+                    <a href="yinshi.html#tea-culture" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">径山茶宴</a>
+                    <a href="yinshi.html#daily-routine" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">日常作息</a>
+                </div>
+            </div>
+        </div>
+         
+        <!-- 现代寺庙与社会 - 子分类 -->
+        <div class="w-full md:w-auto px-2 mb-4 text-center">
+            <div class="relative inline-block">
+                <a href="xiandai.html" class="px-4 py-2 text-white hover:text-temple-gold transition-colors duration-300 text-sm md:text-base border-b-2 border-transparent hover:border-temple-gold flex items-center justify-center">
+                    现代寺庙与社会
+                    <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                </a>
+                <div class="absolute left-0 mt-2 w-44 flex flex-col pl-5 translate-x-1">
+                    <a href="xiandai.html#intro" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">古寺公益</a>
+                    <a href="xiandai.html#corner" class="w-full px-3 py-1.5 text-white hover:text-temple-gold transition-colors text-xs md:text-sm text-left pl-12">文创产品</a>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-16 text-center pb-4 ">
+    <div class="flex justify-center space-x-8 mb-8">
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-weixin text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-weibo text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-youtube-play text-2xl"></i>
+        </a>
+        <a href="#" class="text-white/60 hover:text-temple-gold transition-colors duration-300">
+            <i class="fa fa-instagram text-2xl"></i>
+        </a>
+    </div>
+</div>
+    
+   <!-- 返回顶部按钮 -->
+   <button id="backToTop" class="fixed bottom-6 right-6 bg-temple-red hover:bg-temple-red/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 opacity-0 pointer-events-none z-50">
+    <i class="fa fa-arrow-up"></i>
+</button>
+
+
+<script>
+// 导航栏滚动效果
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', function () {
+    if (window.scrollY > 50) {
+        navbar.classList.add('bg-temple-red/0', 'shadow-md'); // 修改为半透明背景
+        navbar.classList.remove('bg-transparent');
+
+        backToTop.classList.remove('opacity-0', 'pointer-events-none');
+        backToTop.classList.add('opacity-100', 'pointer-events-auto');
+    } else {
+        navbar.classList.remove('bg-temple-red/90', 'shadow-md');
+        navbar.classList.add('bg-transparent');
+
+        backToTop.classList.add('opacity-0', 'pointer-events-none');
+        backToTop.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+});
+
+// 移动端菜单
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click', function () {
+    mobileMenu.classList.toggle('hidden');
+    if (mobileMenu.classList.contains('hidden')) {
+        menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+    } else {
+        menuBtn.innerHTML = '<i class="fa fa-times"></i>';
+    }
+});
+
+// 获取返回顶部按钮元素
+const backToTopButton = document.getElementById('backToTop');
+    
+    // 监听页面滚动事件
+    window.addEventListener('scroll', () => {
+        // 当页面滚动超过200像素时显示按钮
+        if (window.scrollY > 200) {
+            backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+            backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+            backToTopButton.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+    });
+    
+    // 点击按钮时平滑滚动到页面顶部
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+
+// 页面加载完成后执行
+window.addEventListener('load', () => {
+    animateHeroSection();
+
+    // 添加滚动动画
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+
+            if (elementPosition < screenPosition) {
+                element.classList.add('animate-in');
+            }
+        });
+    };
+
+    // 初始检查
+    animateOnScroll();
+
+    // 滚动时检查
+    window.addEventListener('scroll', animateOnScroll);
+});
+</script>
+
+
+</body>
+
+</html>

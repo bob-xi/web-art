@@ -1,0 +1,684 @@
+/* 基础样式 */
+:root {
+    --primary-color: #165DFF;
+    --secondary-color: #FF7D00;
+    --text-color: #333333;
+    --light-text-color: #666666;
+    --background-color: #F8F9FA;
+    --accent-color: #E6F7FF;
+    --hover-color: #0E42D2;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Microsoft YaHei', sans-serif;
+  }
+  
+  body {
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--primary-color);
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* 动画效果 */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+  }
+  
+  /* 导航栏 */
+  header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+  }
+  
+  header.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo span {
+    margin-left: 10px;
+  }
+  
+  nav ul {
+    display: flex;
+    gap: 30px;
+  }
+  
+  nav ul li {
+    position: relative;
+  }
+  
+  nav ul li a {
+    font-weight: 500;
+    padding: 10px 0;
+  }
+  
+  nav ul li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+  }
+  
+  nav ul li:hover::after {
+    width: 100%;
+  }
+  
+  .menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* 移动端导航 */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+    }
+    
+    nav {
+      display: none;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    nav.active {
+      display: block;
+    }
+    
+    nav ul {
+      flex-direction: column;
+      padding: 20px;
+    }
+    
+    nav ul li {
+      padding: 10px 0;
+    }
+  }
+  
+  /* Banner 区域 */
+  .banner {
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    z-index: 1;
+  }
+  
+  .banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://picsum.photos/id/1036/1920/1080');
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+    animation: zoomOut 15s ease-in-out infinite alternate;
+  }
+  
+  @keyframes zoomOut {
+    from { transform: scale(1.05); }
+    to { transform: scale(1); }
+  }
+  
+  .banner-text {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+  }
+  
+  .banner-text h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    animation-delay: 0.2s;
+  }
+  
+  .banner-text p {
+    font-size: 20px;
+    max-width: 800px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    animation-delay: 0.5s;
+  }
+  
+  @media (max-width: 768px) {
+    .banner {
+      height: 400px;
+    }
+    
+    .banner-text h1 {
+      font-size: 36px;
+    }
+    
+    .banner-text p {
+      font-size: 18px;
+    }
+  }
+  
+  /* 热门景点区域 */
+  .popular-attractions {
+    padding: 80px 0;
+    background-color: white;
+  }
+  
+  .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .section-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+  }
+  
+  .section-title p {
+    color: var(--light-text-color);
+    margin-top: 20px;
+  }
+  
+  .attraction-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 增加了最小宽度 */
+    gap: 40px; /* 增加了间距 */
+  }
+  
+  .attraction-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* 添加鼠标指针样式 */
+    position: relative; /* 为链接定位做准备 */
+  }
+  
+  .attraction-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .attraction-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(22, 93, 255, 0.05);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .attraction-item:hover::after {
+    opacity: 1;
+  }
+  
+  .attraction-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+  
+  .attraction-img {
+    height: 220px; /* 增加了图片高度 */
+    background-color: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .attraction-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+  
+  .attraction-item:nth-child(1) .attraction-img::before {
+    background-image: url('https://picsum.photos/id/1031/600/400');
+  }
+  
+  .attraction-item:nth-child(2) .attraction-img::before {
+    background-image: url('https://picsum.photos/id/1039/600/400');
+  }
+  
+  .attraction-item:nth-child(3) .attraction-img::before {
+    background-image: url('https://picsum.photos/id/1040/600/400');
+  }
+  
+  .attraction-item:nth-child(4) .attraction-img::before {
+    background-image: url('https://picsum.photos/id/1059/600/400');
+  }
+  
+  .attraction-item:hover .attraction-img::before {
+    transform: scale(1.1);
+  }
+  
+  .attraction-content {
+    padding: 25px; /* 增加了内边距 */
+  }
+  
+  .attraction-content h3 {
+    font-size: 22px; /* 增加了标题字体大小 */
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+  }
+  
+  .attraction-content p {
+    color: var(--light-text-color);
+    font-size: 15px; /* 增加了文本字体大小 */
+  }
+  
+  /* 住宿推荐区域 */
+  .accommodation {
+    padding: 80px 0;
+    background-color: var(--accent-color);
+  }
+  
+  .accommodation-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+  }
+  
+  .accommodation-img {
+    flex: 1 1 50%;
+    min-height: 400px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .accommodation-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://picsum.photos/id/1048/800/600');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+  
+  .accommodation-img:hover::before {
+    transform: scale(1.05);
+  }
+  
+  .accommodation-text {
+    flex: 1 1 40%;
+  }
+  
+  .accommodation-text h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .accommodation-text h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+  }
+  
+  .accommodation-text p {
+    margin-bottom: 30px;
+    line-height: 1.8;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(22, 93, 255, 0.2);
+  }
+  
+  .btn:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+    color: white;
+  }
+  
+  .btn:active {
+    transform: translateY(0);
+  }
+  
+  @media (max-width: 768px) {
+    .accommodation-img, .accommodation-text {
+      flex: 1 1 100%;
+    }
+    
+    .accommodation-img {
+      min-height: 250px;
+    }
+  }
+  
+  /* 美食推荐区域 */
+  .food-recommendations {
+    padding: 80px 0;
+    background-color: white;
+  }
+  
+  .food-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 固定为3列布局 */
+    gap: 30px;
+    max-width: 1000px; /* 限制最大宽度 */
+    margin: 0 auto; /* 水平居中 */
+  }
+  
+  .food-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 内容居中 */
+    text-align: center; /* 文本居中 */
+  }
+  
+  .food-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 两边的图片高一点 */
+  .food-item:nth-child(1),
+  .food-item:nth-child(3) {
+    margin-top: 30px; /* 降低位置 */
+  }
+  
+  .food-img {
+    width: 180px; /* 设置固定宽度 */
+    height: 180px; /* 设置固定高度，实现正方形 */
+    background-color: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%; /* 圆形图片 */
+    margin: 20px auto; /* 上下间距，水平居中 */
+  }
+  
+  .food-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+  
+  .food-item:nth-child(1) .food-img::before {
+    background-image: url('https://picsum.photos/id/1080/400/400'); /* 使用正方形图片 */
+  }
+  
+  .food-item:nth-child(2) .food-img::before {
+    background-image: url('https://picsum.photos/id/1081/400/400'); /* 使用正方形图片 */
+  }
+  
+  .food-item:nth-child(3) .food-img::before {
+    background-image: url('https://picsum.photos/id/1082/400/400'); /* 使用正方形图片 */
+  }
+  
+  .food-item:hover .food-img::before {
+    transform: scale(1.1);
+  }
+  
+  .food-content {
+    padding: 0 20px 20px 20px; /* 调整内边距 */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .food-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .food-content p {
+    color: var(--light-text-color);
+    font-size: 14px;
+    flex-grow: 1;
+  }
+  
+  /* 页脚区域 */
+  footer {
+    background-color: #1A1A1A;
+    color: white;
+    padding: 60px 0;
+  }
+  
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  
+  .contact-info {
+    flex: 1 1 60%;
+  }
+  
+  .contact-info h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .contact-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--primary-color);
+  }
+  
+  .contact-info p {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .contact-info p i {
+    margin-right: 10px;
+    color: var(--primary-color);
+  }
+  
+  .phone {
+    flex: 1 1 30%;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .phone p:first-child {
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .phone p:last-child {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .copyright {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .contact-info, .phone {
+      flex: 1 1 100%;
+    }
+    
+    .phone {
+      text-align: left;
+    }
+    
+    /* 移动端美食推荐布局调整 */
+    .food-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .food-item:nth-child(1),
+    .food-item:nth-child(3) {
+      margin-top: 0; /* 取消偏移 */
+    }
+  }
+  
+  /* 滚动动画 */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  
+  [data-animate].visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* 标题居中样式 */
+  .food-recommendations h2,
+  .popular-attractions h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 40px; /* 减少底部边距 */
+    margin-top: 20px; /* 增加顶部边距 */
+  }
+  
+  /* 标题下方的装饰线位置调整 */
+  .food-recommendations h2::after,
+  .popular-attractions h2::after {
+    bottom: -20px; /* 调整装饰线的位置 */
+  }
+  
