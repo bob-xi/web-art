@@ -155,18 +155,101 @@
         .carousel-inner {
             display: flex;
             width: 100%;
-            transition: transform 0.6s ease-in-out;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .item {
             flex: 0 0 100%;
             height: 55vh;
+            position: relative;
+            overflow: hidden;
         }
         .item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.8s ease-out, filter 0.8s ease-out;
         }
-        .carousel-control {
+        
+        /* 水波纹效果 */
+        .item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .item.ripple-effect::before {
+            animation: ripple 0.8s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
+        }
+        
+        /* 图片缩放效果 */
+        .item.zoom-in img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        
+        .item.zoom-out img {
+             transform: scale(0.95);
+             filter: brightness(0.9);
+         }
+         
+         /* 时间线样式 */
+          .timeline-container {
+              position: absolute;
+              left: 20px;
+              top: 50%;
+              transform: translateY(-50%);
+              z-index: 20;
+              height: 60%;
+          }
+          
+          .timeline-track {
+              position: relative;
+              width: 6px;
+              height: 100%;
+              background: rgba(255, 255, 255, 0.3);
+              border-radius: 3px;
+              overflow: hidden;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          }
+          
+          .timeline-progress {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 0%;
+              background: linear-gradient(to top, #D4AF37, #FFD700, #FFF8DC);
+              border-radius: 3px;
+              transition: none;
+              box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+          }
+         
+         .carousel-control {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -260,16 +343,91 @@
             </div>
 
             <!-- 桌面导航 -->
-            <div class="hidden md:flex items-center space-x-16">
-                <a href="#about"
-                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">关于古寺</a>
-                <a href="#intro"
-                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">古寺介绍</a>
-                <a href="#corner"
-                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">古寺一隅</a>
-               
+            <div class="hidden md:flex items-center space-x-8">
+                <!-- 首页 -->
+                <a href="index.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-lg">首页</a>
+                
+                <!-- 古寺文化 -->
+                <div class="relative group">
+                    <a href="#" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        古寺文化
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-2 w-48 bg-white/95 backdrop-blur-md rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="py-2">
+                            <a href="jianzhu.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">古寺建筑</a>
+                            <a href="yishuwenwu.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">艺术文物</a>
+                            <a href="wenxuechuanbo.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">文学传播</a>
+                            <a href="yinshi.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">饮食文化</a>
+                            <a href="xiandai.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">现代发展</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 名山古寺 -->
+                <div class="relative group">
+                    <a href="#" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        名山古寺
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-2 w-48 bg-white/95 backdrop-blur-md rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="py-2">
+                            <a href="wutaishan.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">五台山</a>
+                            <a href="emeishan.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">峨眉山</a>
+                            <a href="jiuhuashan.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">九华山</a>
+                            <a href="puyuoshan.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">普陀山</a>
+                            <a href="chaoshneg.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">潮圣寺</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 专题展示 -->
+                <div class="relative group">
+                    <a href="#" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        专题展示
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 backdrop-blur-md rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="py-2">
+                            <!-- 建筑专题 -->
+                            <div class="relative group/sub">
+                                <a href="#" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors flex items-center justify-between">
+                                    建筑专题
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <div class="absolute left-full top-0 ml-2 w-48 bg-white/95 backdrop-blur-md rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300">
+                                    <div class="py-2">
+                                        <a href="jzsanjiyi.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">建筑三级一</a>
+                                        <a href="jzsanjier.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">建筑三级二</a>
+                                        <a href="jzsanjisan.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">建筑三级三</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 艺术文物专题 -->
+                            <div class="relative group/sub">
+                                <a href="#" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors flex items-center justify-between">
+                                    艺术文物专题
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <div class="absolute left-full top-0 ml-2 w-48 bg-white/95 backdrop-blur-md rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300">
+                                    <div class="py-2">
+                                        <a href="ysywwsanjiyi.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">艺术三级一</a>
+                                        <a href="ysywwanjier.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">艺术三级二</a>
+                                        <a href="ysywwsanjisan.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">艺术三级三</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 其他专题 -->
+                            <a href="sanjiba.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">三级八</a>
+                            <a href="sanjijiu.html" class="block px-4 py-2 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 transition-colors">三级九</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 联系我们 -->
                 <a href="contact.html"
-                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">联系我们</a>
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-lg">联系我们</a>
             </div>
 
             <!-- 搜索框 -->
@@ -303,27 +461,95 @@
         </div>
 
         <!-- 移动端导航菜单 -->
-        <div id="mobileMenu" class="hidden md:hidden bg-white/98 backdrop-blur-md absolute w-full shadow-lg">
-            <div class="flex flex-col p-8 space-y-8">
-                <a href="#about"
-                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                    <i class="fa fa-angle-right mr-4 w-10 text-2xl"></i>
-                    关于古寺
-                </a>
-                <a href="#intro"
-                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                    <i class="fa fa-angle-right mr-4 w-10 text-2xl"></i>
-                    古寺介绍
-                </a>
-                <a href="#corner"
-                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                    <i class="fa fa-angle-right mr-4 w-10 text-2xl"></i>
-                    古寺一隅
+        <div id="mobileMenu" class="hidden md:hidden bg-white/98 backdrop-blur-md absolute w-full shadow-lg max-h-96 overflow-y-auto">
+            <div class="flex flex-col p-4 space-y-2">
+                <!-- 首页 -->
+                <a href="index.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center text-lg">
+                    <i class="fa fa-home mr-3 w-6 text-lg"></i>
+                    首页
                 </a>
                 
+                <!-- 古寺文化 -->
+                <div class="mobile-dropdown">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fa fa-university mr-3 w-6 text-lg"></i>
+                            古寺文化
+                        </span>
+                        <i class="fa fa-angle-down transition-transform"></i>
+                    </button>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <a href="jianzhu.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">古寺建筑</a>
+                        <a href="yishuwenwu.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">艺术文物</a>
+                        <a href="wenxuechuanbo.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">文学传播</a>
+                        <a href="yinshi.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">饮食文化</a>
+                        <a href="xiandai.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">现代发展</a>
+                    </div>
+                </div>
+                
+                <!-- 名山古寺 -->
+                <div class="mobile-dropdown">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fa fa-mountain mr-3 w-6 text-lg"></i>
+                            名山古寺
+                        </span>
+                        <i class="fa fa-angle-down transition-transform"></i>
+                    </button>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <a href="wutaishan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">五台山</a>
+                        <a href="emeishan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">峨眉山</a>
+                        <a href="jiuhuashan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">九华山</a>
+                        <a href="puyuoshan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">普陀山</a>
+                        <a href="chaoshneg.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">潮圣寺</a>
+                    </div>
+                </div>
+                
+                <!-- 专题展示 -->
+                <div class="mobile-dropdown">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fa fa-th-large mr-3 w-6 text-lg"></i>
+                            专题展示
+                        </span>
+                        <i class="fa fa-angle-down transition-transform"></i>
+                    </button>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <!-- 建筑专题 -->
+                        <div class="mobile-dropdown">
+                            <button class="w-full text-left py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center justify-between" onclick="toggleMobileDropdown(this)">
+                                建筑专题
+                                <i class="fa fa-angle-down transition-transform text-sm"></i>
+                            </button>
+                            <div class="mobile-submenu hidden pl-4 space-y-1">
+                                <a href="jzsanjiyi.html" class="block py-1 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors text-sm">建筑三级一</a>
+                                <a href="jzsanjier.html" class="block py-1 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors text-sm">建筑三级二</a>
+                                <a href="jzsanjisan.html" class="block py-1 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors text-sm">建筑三级三</a>
+                            </div>
+                        </div>
+                        <!-- 艺术文物专题 -->
+                        <div class="mobile-dropdown">
+                            <button class="w-full text-left py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center justify-between" onclick="toggleMobileDropdown(this)">
+                                艺术文物专题
+                                <i class="fa fa-angle-down transition-transform text-sm"></i>
+                            </button>
+                            <div class="mobile-submenu hidden pl-4 space-y-1">
+                                <a href="ysywwsanjiyi.html" class="block py-1 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors text-sm">艺术三级一</a>
+                                <a href="ysywwanjier.html" class="block py-1 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors text-sm">艺术三级二</a>
+                                <a href="ysywwsanjisan.html" class="block py-1 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors text-sm">艺术三级三</a>
+                            </div>
+                        </div>
+                        <!-- 其他专题 -->
+                        <a href="sanjiba.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">三级八</a>
+                        <a href="sanjijiu.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">三级九</a>
+                    </div>
+                </div>
+                
+                <!-- 联系我们 -->
                 <a href="contact.html"
-                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                    <i class="fa fa-angle-right mr-4 w-10 text-2xl"></i>
+                    class="text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center text-lg">
+                    <i class="fa fa-envelope mr-3 w-6 text-lg"></i>
                     联系我们
                 </a>
             </div>
@@ -334,6 +560,13 @@
 
     <!-- 第一板块：轮播图背景 -->
     <div class="carousel" id="carousel" style="height: 900px;">
+        <!-- 时间线 -->
+        <div class="timeline-container">
+            <div class="timeline-track">
+                <div class="timeline-progress" id="timeline-progress"></div>
+            </div>
+        </div>
+        
         <div class="carousel-inner" style="height: 100%;">
             <div class="item" style="height: 100%;">
                 <img src="../AAA/images/1/5.png" style="background-color: pink; height: 100%; width: 100%; object-fit: cover;">
@@ -351,8 +584,7 @@
                 <img src="../AAA/images/1/1.png" style="background-color: rgb(210, 161, 250); height: 100%; width: 100%; object-fit: cover;">
             </div>
         </div>
-        <div class="carousel-control left" onclick="prevSlide()">&lsaquo;</div>
-        <div class="carousel-control right" onclick="nextSlide()">&rsaquo;</div>
+
     
         <div class="dots">
             <li class="active" onclick="jumpToSlide(0)"></li>
@@ -529,8 +761,10 @@
                   const dots = document.querySelectorAll('.carousel-dot');
                   
                   // 设置初始活动指示器
-                  dots[0].classList.add('bg-white');
-                  dots[0].classList.add('scale-125');
+                  if (dots.length > 0) {
+                    dots[0].classList.add('bg-white');
+                    dots[0].classList.add('scale-125');
+                  }
                   
                   // 轮播项宽度计算
                   function getItemWidth() {
@@ -1126,17 +1360,144 @@ window.addEventListener('load', () => {
     // 滚动时检查
     window.addEventListener('scroll', animateOnScroll);
 });
+
+// 移动端导航功能
+function toggleMobileDropdown(button) {
+    const submenu = button.nextElementSibling;
+    const icon = button.querySelector('.fa-angle-down');
+    
+    if (submenu.classList.contains('hidden')) {
+        submenu.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+    } else {
+        submenu.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
+
+// 移动端菜单切换
+document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const searchBtn = document.getElementById('searchBtn');
+    const mobileSearch = document.getElementById('mobileSearch');
+    
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            // 关闭搜索框
+            if (mobileSearch && !mobileSearch.classList.contains('hidden')) {
+                mobileSearch.classList.add('hidden');
+            }
+        });
+    }
+    
+    if (searchBtn && mobileSearch) {
+        searchBtn.addEventListener('click', function() {
+            mobileSearch.classList.toggle('hidden');
+            // 关闭菜单
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    }
+    
+    // 点击页面其他地方关闭菜单
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#menuBtn') && !e.target.closest('#mobileMenu')) {
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+        if (!e.target.closest('#searchBtn') && !e.target.closest('#mobileSearch')) {
+            if (mobileSearch && !mobileSearch.classList.contains('hidden')) {
+                mobileSearch.classList.add('hidden');
+            }
+        }
+    });
+});
 </script>
 
 <script>
     let items = document.querySelectorAll('.item');
     let current = 0;
+    let timelineProgress = document.getElementById('timeline-progress');
+    let progressInterval;
+    let startTime;
+    let pausedProgress = 0; // 记录暂停时的进度
+    const slideDuration = 3000; // 3秒切换一次
+    
     function showSlide() {
-        items.forEach(item => {
+        items.forEach((item, index) => {
             item.style.transform = `translateX(-${current * 100}%)`;
+            
+            // 移除所有效果类
+            item.classList.remove('ripple-effect', 'zoom-in', 'zoom-out');
+            
+            // 为当前项添加水波纹效果
+            if (index === current) {
+                setTimeout(() => {
+                    item.classList.add('ripple-effect', 'zoom-in');
+                }, 100);
+            } else {
+                item.classList.add('zoom-out');
+            }
         });
         updateDots();
+        startTimelineProgress();
     }
+    
+    function startTimelineProgress() {
+        // 清除之前的进度动画
+        if (progressInterval) {
+            clearInterval(progressInterval);
+        }
+        
+        // 重置进度条为0
+        timelineProgress.style.height = '0%';
+        pausedProgress = 0;
+        
+        startTime = Date.now();
+        
+        progressInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / slideDuration, 1);
+            
+            // 进度条从0到100%
+            const currentHeight = progress * 100;
+            timelineProgress.style.height = currentHeight + '%';
+            
+            if (progress >= 1) {
+                clearInterval(progressInterval);
+            }
+        }, 50);
+    }
+    
+    function continueTimelineProgress() {
+         // 清除之前的进度动画
+         if (progressInterval) {
+             clearInterval(progressInterval);
+         }
+         
+         // 从暂停的进度继续
+         const remainingTime = slideDuration * (1 - pausedProgress / 100);
+         startTime = Date.now() - (slideDuration - remainingTime);
+         
+         progressInterval = setInterval(() => {
+             const elapsed = Date.now() - startTime;
+             const progress = Math.min(elapsed / slideDuration, 1);
+             
+             // 进度条继续增长
+             const currentHeight = progress * 100;
+             timelineProgress.style.height = currentHeight + '%';
+             
+             if (progress >= 1) {
+                 clearInterval(progressInterval);
+                 // 进度条满了自动切换到下一张图片
+                 nextSlide();
+             }
+         }, 50);
+     }
 
     function prevSlide() {
         if (current > 0) {
@@ -1156,26 +1517,41 @@ window.addEventListener('load', () => {
         showSlide();
     }
 
-    let timer = setInterval(nextSlide, 3000);
+    let timer = setInterval(nextSlide, slideDuration);
 
     function pauseTimer() {
         clearInterval(timer);
+        if (progressInterval) {
+            clearInterval(progressInterval);
+            // 记录当前进度
+            const elapsed = Date.now() - startTime;
+            pausedProgress = Math.min(elapsed / slideDuration, 1) * 100;
+        }
     }
     function resumeTimer() {
-        timer = setInterval(nextSlide, 3000);
+        timer = setInterval(nextSlide, slideDuration);
+        // 从暂停的进度继续
+        continueTimelineProgress();
     }
 
     document.getElementById('carousel').addEventListener('mouseover', pauseTimer);
     document.getElementById('carousel').addEventListener('mouseout', resumeTimer);
-
+    
     let dots = document.querySelectorAll('.dots li');
 
     function updateDots() {
-        dots.forEach(dot => {
-            dot.classList.remove('active');
-        });
-        dots[current].classList.add('active');
+        if (dots && dots.length > 0) {
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+            if (dots[current]) {
+                dots[current].classList.add('active');
+            }
+        }
     }
+    
+    // 初始化第一张图片的效果
+    showSlide();
 
     function jumpToSlide(index) {
         current = index;

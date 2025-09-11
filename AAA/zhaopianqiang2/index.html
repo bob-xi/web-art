@@ -132,6 +132,59 @@
         const imageViewer = document.querySelector('.image-viewer');
         const viewerImage = document.getElementById('viewer-image');
         const closeBtn = document.querySelector('.close-btn');
+        
+        // 自动旋转配置
+        let autoRotateInterval = 1000; // 自动旋转间隔时间（毫秒）
+        let autoRotateTimer = null;
+        let isAutoRotating = true;
+        let currentRotation = 180; // 当前旋转角度
+        const totalImages = 10; // 图片总数
+        const rotationStep = 36; // 每次旋转的角度（360度 / 10张图片）
+        
+        // 自动旋转功能
+        function startAutoRotate() {
+            if (autoRotateTimer) {
+                clearInterval(autoRotateTimer);
+            }
+            
+            autoRotateTimer = setInterval(() => {
+                if (isAutoRotating) {
+                    currentRotation -= rotationStep; // 逆时针旋转
+                    gsap.to('.ring', {
+                        rotationY: currentRotation,
+                        duration: 1,
+                        ease: 'power2.inOut'
+                    });
+                }
+            }, autoRotateInterval);
+        }
+        
+        // 停止自动旋转
+        function stopAutoRotate() {
+            if (autoRotateTimer) {
+                clearInterval(autoRotateTimer);
+                autoRotateTimer = null;
+            }
+        }
+        
+        // 暂停自动旋转
+        function pauseAutoRotate() {
+            isAutoRotating = false;
+        }
+        
+        // 恢复自动旋转
+        function resumeAutoRotate() {
+            isAutoRotating = true;
+        }
+        
+        // 设置自动旋转间隔时间
+        function setAutoRotateInterval(interval) {
+            autoRotateInterval = interval;
+            if (autoRotateTimer) {
+                stopAutoRotate();
+                startAutoRotate();
+            }
+        }
 
         gsap.timeline()
             .set('.ring', { rotationY: 180, cursor: 'grab' })
@@ -152,11 +205,15 @@
                 document.querySelectorAll('.img').forEach(img => {
                     img.addEventListener('mouseenter', (e) => {
                         let current = e.currentTarget;
-                        gsap.to('.img', { opacity: (i, t) => (t == current) ? 1 : 0.5, ease: 'power3' })
+                        gsap.to('.img', { opacity: (i, t) => (t == current) ? 1 : 0.5, ease: 'power3' });
+                        // 鼠标悬停时暂停自动旋转
+                        pauseAutoRotate();
                     });
 
                     img.addEventListener('mouseleave', (e) => {
-                        gsap.to('.img', { opacity: 1, ease: 'power2.inOut' })
+                        gsap.to('.img', { opacity: 1, ease: 'power2.inOut' });
+                        // 鼠标离开时恢复自动旋转
+                        resumeAutoRotate();
                     });
                     
                     // 为每个图片添加点击事件
@@ -170,6 +227,9 @@
                         document.body.style.overflow = 'hidden';
                     });
                 });
+                
+                // 启动自动旋转
+                startAutoRotate();
             }, '-=0.5');
 
         document.addEventListener('mousedown', dragStart);
@@ -179,18 +239,23 @@
             if (e.touches) e.clientX = e.touches[0].clientX;
             xPos = Math.round(e.clientX);
             gsap.set('.ring', { cursor: 'grabbing' });
+            // 拖拽开始时暂停自动旋转
+            pauseAutoRotate();
             document.addEventListener('mousemove', drag);
             document.addEventListener('touchmove', drag);
         }
 
         function drag(e) {
             if (e.touches) e.clientX = e.touches[0].clientX;
+            const deltaX = (Math.round(e.clientX) - xPos) % 360;
             gsap.to('.ring', {
-                rotationY: '-=' + ((Math.round(e.clientX) - xPos) % 360),
+                rotationY: '-=' + deltaX,
                 onUpdate: () => {
+                    // 更新当前旋转角度
+                    currentRotation = gsap.getProperty('.ring', 'rotationY');
                     // 更新图片位置
                     document.querySelectorAll('.img img').forEach((img, i) => {
-                        const bgPos = (100 - gsap.utils.wrap(0, 360, gsap.getProperty('.ring', 'rotationY') - 180 - i * 36) / 360 * 500) + 'px 0px';
+                        const bgPos = (100 - gsap.utils.wrap(0, 360, currentRotation - 180 - i * 36) / 360 * 500) + 'px 0px';
                         // 这里可以根据需要调整图片位置
                     });
                 }
@@ -206,6 +271,10 @@
             document.removeEventListener('mousemove', drag);
             document.removeEventListener('touchmove', drag);
             gsap.set('.ring', { cursor: 'grab' });
+            // 拖拽结束后恢复自动旋转
+            setTimeout(() => {
+                resumeAutoRotate();
+            }, 1000); // 延迟1秒后恢复自动旋转
         }
         
         // 关闭图片查看器
