@@ -612,8 +612,32 @@
           <div class="hidden md:flex items-center space-x-16">
               <a href="index.html#about"
                   class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">首页</a>
-              <a href="#intro"
-                  class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">四大名山</a>
+              <div class="relative group">
+                  <a href="#intro" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-xl flex items-center">
+                      四大名山
+                      <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i>
+                  </a>
+                  <div class="absolute top-full left-0 mt-2 w-56 bg-gradient-to-br from-white/98 to-temple-paper/95 backdrop-blur-xl rounded-xl shadow-2xl border border-temple-gold/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 transform translate-y-2 group-hover:translate-y-0 z-50">
+                      <div class="py-3">
+                          <a href="wutaishan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                              <i class="fa fa-pagelines mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                              <span class="font-medium">五台山</span>
+                          </a>
+                          <a href="emeishan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                              <i class="fa fa-tree mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                              <span class="font-medium">峨眉山</span>
+                          </a>
+                          <a href="jiuhuashan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                              <i class="fa fa-leaf mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                              <span class="font-medium">九华山</span>
+                          </a>
+                          <a href="puyuoshan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                              <i class="fa fa-anchor mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                              <span class="font-medium">普陀山</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
               <a href="#corner"
                   class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">节日庆典</a>
              
@@ -659,11 +683,21 @@
                   <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
                   首页
               </a>
-              <a href="#intro"
-                  class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                  <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
-                  四大名山
-              </a>
+              <div class="mobile-dropdown">
+                  <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-xl" onclick="toggleMobileDropdown(this)">
+                      <span class="flex items-center">
+                          <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                          四大名山
+                      </span>
+                      <i class="fa fa-angle-down transition-transform"></i>
+                  </button>
+                  <div class="mobile-submenu hidden pl-12 space-y-2">
+                      <a href="wutaishan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">五台山</a>
+                      <a href="emeishan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">峨眉山</a>
+                      <a href="jiuhuashan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">九华山</a>
+                      <a href="puyuoshan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">普陀山</a>
+                  </div>
+              </div>
               <a href="#corner"
                   class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
                   <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
@@ -1102,6 +1136,20 @@ menuBtn.addEventListener('click', function () {
         menuBtn.innerHTML = '<i class="fa fa-times"></i>';
     }
 });
+
+// 移动端下拉菜单功能
+function toggleMobileDropdown(button) {
+    const submenu = button.nextElementSibling;
+    const icon = button.querySelector('.fa-angle-down');
+    
+    if (submenu.classList.contains('hidden')) {
+        submenu.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+    } else {
+        submenu.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
 
 /// 获取返回顶部按钮元素
 const backToTopButton = document.getElementById('backToTop');
