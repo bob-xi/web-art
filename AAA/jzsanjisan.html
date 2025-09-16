@@ -107,7 +107,7 @@
 
     <body class="bg-stone font-sans text-gray-800 overflow-x-hidden scroll-smooth">
       <!-- 导航栏 -->
-  <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+  <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
     <nav class="bg-white/10 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
         <div class="flex items-center space-x-2">
             <a href="index.html" class="text-temple-red text-2xl font-bold flex items-center">
@@ -162,6 +162,30 @@
 
          
 </header>
+
+      <!-- 面包屑导航 -->
+      <nav class="bg-gray-50 border-b border-gray-200 py-3 mt-16">
+        <div class="container mx-auto px-4">
+          <ol class="flex items-center space-x-2 text-sm text-gray-600">
+            <li>
+              <a href="index.html" class="hover:text-temple-red transition-colors duration-200 flex items-center">
+                <i class="fa fa-home mr-1"></i>
+                中国古寺
+              </a>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-angle-right mx-2 text-gray-400"></i>
+              <a href="jianzhu.html" class="hover:text-temple-red transition-colors duration-200">
+                建筑文化
+              </a>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-angle-right mx-2 text-gray-400"></i>
+              <span class="text-temple-red font-medium">建筑风格</span>
+            </li>
+          </ol>
+        </div>
+      </nav>
 
       <main>
         <!-- 英雄区域 -->
