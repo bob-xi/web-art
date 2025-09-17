@@ -29,7 +29,14 @@
                     },
                     fontFamily: {
                         sans: ['Noto Sans SC', 'sans-serif'],
-                        nangou: ['"Nangou Wuyang"', 'serif']
+                        nangou: [
+                            '"Nangou Wuyang"', 
+                            '"南构无恙行书"',
+                            '华文中宋', 
+                            'STZhongsong', 
+                            'SimSun', 
+                            'serif'
+                        ]
                     },
                 }
             }
@@ -49,11 +56,21 @@
         /* 南构无恙字体 */
         @font-face {
             font-family: 'Nangou Wuyang';
-            src: local('Nangou Wuyang'),
-                 url('南构无恙行书.ttf') format('truetype');
-            font-weight: normal;
+            src: 
+                local('Nangou Wuyang'),
+                local('南构无恙行书'),
+                url('南构无恙行书.ttf') format('truetype'),
+                url('南构无恙行书.ttf') format('opentype');
+            font-weight: 400;
             font-style: normal;
             font-display: swap;
+            unicode-range: U+4E00-9FFF; /* 中文字符范围 */
+        }
+        
+        /* 确保字体类正确应用 */
+        .font-nangou {
+            font-family: 'Nangou Wuyang', '华文中宋', 'STZhongsong', 'SimSun', serif !important;
+            font-feature-settings: "kern" 1;
         }
     </style>
 

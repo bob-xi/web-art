@@ -29,6 +29,7 @@
                     },
                     fontFamily: {
                         sans: ['Noto Sans SC', 'sans-serif'],
+                        nangou: ['"Nangou Wuyang"', 'serif'],
                     },
                 }
             }
@@ -39,6 +40,12 @@
             font-family: '华文中宋';
             src: local('STZhongsong'), local('华文宋体'), local('SimSun');
             font-display: swap;
+        }
+        @font-face {
+            font-family: 'Nangou Wuyang';
+            src: url('南构无恙行书.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
         
         .font-stylish {
@@ -682,6 +689,10 @@ input:checked + label .description {
     <section class="banner">
         <div class="banner-text">
           <img src="../AAA/images/yishuwenwu/6.png" alt="">
+        </div>
+        <!-- 右上角文字 - 艺术与文物 -->
+        <div class="absolute top-4 right-8 z-10 font-nangou text-8xl text-white font-bold drop-shadow-2xl" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);">
+          艺术与文物
         </div>
       </section>
  <!-- 第二板块：佛像雕塑 -->

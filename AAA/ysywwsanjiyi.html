@@ -29,6 +29,7 @@
                     },
                     fontFamily: {
                         sans: ['Noto Sans SC', 'sans-serif'],
+                        nangou: ['"Nangou Wuyang"', 'serif'],
                     },
                 }
             }
@@ -91,6 +92,13 @@
     </style>
     
     <style type="text/tailwindcss">
+        @font-face {
+          font-family: 'Nangou Wuyang';
+          src: url('../AAA/南构无恙行书.ttf') format('truetype');
+          font-weight: normal;
+          font-style: normal;
+        }
+        
         @layer utilities {
             .text-shadow {
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -639,6 +647,9 @@
         <div class="absolute inset-0 z-0">
             <img src="../AAA/images/3.1ysyuw/1.png" alt="华严寺全景" class="w-full h-full object-cover">
             <div class="absolute inset-0 "></div>
+            <div class="absolute top-8 right-8 z-10 font-nangou text-8xl text-white font-bold drop-shadow-2xl text-shadow">
+                华严寺壁画
+            </div>
         </div>
         
         <div class="container mx-auto px-4 z-10 text-center">
@@ -885,7 +896,7 @@
             </div>
             
 
-    <div class="banner-text mb-16 h-96">
+    <div class="banner-text mb-16 h-96 relative">
       <img src="../AAA/images/3.1ysyuw/4.png" alt="">
     </div>
             

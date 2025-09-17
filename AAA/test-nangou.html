@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南构字体测试</title>
+    <style>
+        /* 南构无恙字体 */
+        @font-face {
+            font-family: 'Nangou Wuyang';
+            src: 
+                local('Nangou Wuyang'),
+                local('南构无恙行书'),
+                url('南构无恙行书.ttf') format('truetype'),
+                url('南构无恙行书.ttf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+            unicode-range: U+4E00-9FFF;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .nangou-text {
+            font-family: 'Nangou Wuyang', '华文中宋', 'SimSun', serif;
+            font-size: 48px;
+            color: #333;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .success {
+            border-color: #4CAF50;
+            background: #f1f8e9;
+        }
+        
+        .fallback {
+            border-color: #ff9800;
+            background: #fff3e0;
+        }
+        
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>南构无恙字体测试</h1>
+        
+        <div class="info">
+            <p><strong>字体文件:</strong> 南构无恙行书.ttf</p>
+            <p><strong>字体族:</strong> 'Nangou Wuyang'</p>
+            <p><strong>文件大小:</strong> 4.79 MB</p>
+        </div>
+        
+        <div class="nangou-text" id="testText">
+            文学与传播 - 这是南构无恙字体的测试文字
+        </div>
+        
+        <div class="info">
+            <h3>测试说明:</h3>
+            <p>如果上方文字显示为南构无恙字体，边框将变为绿色</p>
+            <p>如果使用回退字体，边框将变为橙色</p>
+            <p>请按F12打开开发者工具查看控制台输出</p>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <h3>不同大小的测试:</h3>
+            <div style="font-family: 'Nangou Wuyang', serif; font-size: 24px; margin: 10px 0;">24px: 文学与传播</div>
+            <div style="font-family: 'Nangou Wuyang', serif; font-size: 36px; margin: 10px 0;">36px: 文学与传播</div>
+            <div style="font-family: 'Nangou Wuyang', serif; font-size: 48px; margin: 10px 0;">48px: 文学与传播</div>
+            <div style="font-family: 'Nangou Wuyang', serif; font-size: 64px; margin: 10px 0;">64px: 文学与传播</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('南构字体测试页面加载完成');
+            
+            // 检查字体是否加载成功
+            const testElement = document.getElementById('testText');
+            
+            if (typeof FontFace !== 'undefined') {
+                const nangouFont = new FontFace('Nangou Wuyang', 'url(南构无恙行书.ttf)');
+                
+                nangouFont.load().then(function(loadedFont) {
+                    document.fonts.add(loadedFont);
+                    console.log('✅ 南构字体通过FontFace API加载成功');
+                    
+                    // 检查实际应用的字体
+                    setTimeout(function() {
+                        const computedStyle = window.getComputedStyle(testElement);
+                        console.log('计算字体:', computedStyle.fontFamily);
+                        
+                        if (computedStyle.fontFamily.includes('Nangou') || computedStyle.fontFamily.includes('南构')) {
+                            console.log('✅ 南构字体已成功应用');
+                            testElement.classList.add('success');
+                        } else {
+                            console.log('❌ 南构字体未应用，当前字体:', computedStyle.fontFamily);
+                            testElement.classList.add('fallback');
+                        }
+                    }, 1000);
+                    
+                }).catch(function(error) {
+                    console.error('❌ 南构字体加载失败:', error);
+                    testElement.classList.add('fallback');
+                });
+            } else {
+                console.log('浏览器不支持FontFace API，使用传统检测');
+                
+                setTimeout(function() {
+                    const computedStyle = window.getComputedStyle(testElement);
+                    console.log('计算字体:', computedStyle.fontFamily);
+                    
+                    if (computedStyle.fontFamily.includes('Nangou') || computedStyle.fontFamily.includes('南构')) {
+                        console.log('✅ 南构字体已应用');
+                        testElement.classList.add('success');
+                    } else {
+                        console.log('❌ 南构字体未应用');
+                        testElement.classList.add('fallback');
+                    }
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

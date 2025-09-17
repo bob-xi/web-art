@@ -29,6 +29,7 @@
                     },
                     fontFamily: {
                         sans: ['Noto Sans SC', 'sans-serif'],
+                        nangou: ['"Nangou Wuyang"', '"南构无恙行书"', '华文中宋', 'STZhongsong', 'SimSun', 'serif'],
                     },
                 }
             }
@@ -43,6 +44,24 @@
         
         .font-stylish {
             font-family: '华文中宋', 'STZhongsong', '华文宋体', 'SimSun', serif;
+        }
+        
+        /* 南构无恙字体 */
+        @font-face {
+            font-family: 'Nangou Wuyang';
+            src: 
+                local('Nangou Wuyang'),
+                local('南构无恙行书'),
+                url('南构无恙行书.ttf') format('truetype'),
+                url('南构无恙行书.ttf') format('opentype');
+            font-display: swap;
+            font-weight: 400;
+            unicode-range: U+4E00-9FFF;
+        }
+        
+        .font-nangou {
+            font-family: 'Nangou Wuyang', '华文中宋', 'STZhongsong', 'SimSun', serif !important;
+            font-feature-settings: "kern" 1;
         }
     </style>
 
@@ -255,11 +274,9 @@
     .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  height: 600px;
-  margin-top: 100px;
-  margin-bottom: 30px;
-  margin-left: 220px;
+  max-width: 1400px;
+  height: 700px;
+  margin: 100px 0 30px 100px;
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -814,10 +831,17 @@
       </div>
     </nav>
 
+    <!-- 金阁键盘文字 -->
+    <div class="container relative">
+        <div class="absolute top-8 right-8 z-10">
+            <h1 class="font-nangou text-8xl text-white font-bold drop-shadow-2xl [text-shadow:_0_4px_12px_rgb(0_0_0_/_70%)]">金阁键盘</h1>
+        </div>
+    </div>
+
     <div class="container">
         
         <!-- 轮播图容器 -->
-        <div class="carousel-container">
+        <div class="carousel-container mt-16">
           <!-- 图片容器 -->
           <div class="carousel-images" id="carouselImages">
             <!-- 本地图片通过<img>标签加载 -->

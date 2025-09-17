@@ -26,6 +26,7 @@
             sans: ['Inter', 'system-ui', 'sans-serif'],
             serif: ['"Noto Serif SC"', 'serif'],
             tibetan: ['"Noto Sans Tibetan"', 'sans-serif'],
+            nangou: ['"Nangou Wuyang"', 'serif'],
           },
           backgroundImage: {
             'tibetan-pattern': "url('https://picsum.photos/id/1048/1000/1000')",
@@ -37,6 +38,14 @@
   
   <!-- 自定义样式 -->
   <style type="text/tailwindcss">
+    /* 南构无恙字体 */
+    @font-face {
+      font-family: 'Nangou Wuyang';
+      src: url('南构无恙行书.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
     @layer utilities {
       .text-shadow {
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -530,6 +539,11 @@
       <div class="absolute inset-0 z-0">
         <img src="../AAA/images/3.1ysyuw/6 (10).png" alt="萨迦寺全景" class="w-full h-full object-cover">
         
+      </div>
+
+      <!-- 萨迦寺经书文字 -->
+      <div class="absolute top-8 right-8 z-10 font-nangou text-8xl text-white font-bold drop-shadow-2xl text-shadow">
+        萨迦寺经书
       </div>
      
       <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
