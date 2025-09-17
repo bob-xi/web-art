@@ -1344,34 +1344,47 @@ document.addEventListener('DOMContentLoaded', function() {
   reveal(); // 初始检查
   
   // 互动问答功能
-  const answerBtns = document.querySelectorAll('.answer-btn');
-  const answers = [1, 2, 0, 2]; // 正确答案索引：汉传=0，藏传=1，南传=2
-  
-  answerBtns.forEach((btn, index) => {
-    btn.addEventListener('click', function() {
-      const questionIndex = Math.floor(index / 3);
-      const selectedAnswer = index % 3;
-      const feedbackEl = this.parentElement.nextElementSibling;
+      const answerBtns = document.querySelectorAll('.answer-btn');
+      const answers = [1, 2, 0, 2]; // 正确答案索引：汉传=0，藏传=1，南传=2
       
-      // 重置所有按钮样式
-      this.parentElement.querySelectorAll('.answer-btn').forEach(b => {
-        b.classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+      answerBtns.forEach((btn, index) => {
+        btn.addEventListener('click', function() {
+          const questionIndex = Math.floor(index / 3);
+          const selectedAnswer = index % 3;
+          const feedbackEl = this.parentElement.nextElementSibling;
+          
+          // 重置所有按钮样式 - 只移除状态类，保留原有特色颜色
+          this.parentElement.querySelectorAll('.answer-btn').forEach(b => {
+            b.classList.remove('bg-green-500', 'text-white', 'bg-red-500', 'text-white');
+            // 恢复原有特色颜色
+            if (b.textContent === '汉传') {
+              b.classList.add('bg-han-primary/10', 'text-han-primary');
+            } else if (b.textContent === '藏传') {
+              b.classList.add('bg-tibetan-primary/10', 'text-tibetan-primary');
+            } else if (b.textContent === '南传') {
+              b.classList.add('bg-theravada-primary/10', 'text-theravada-primary');
+            }
+          });
+          
+          // 重置反馈文字颜色
+          feedbackEl.classList.remove('text-green-600', 'text-red-600');
+          
+          // 显示反馈 - 使用更协调的颜色
+          if (selectedAnswer === answers[questionIndex]) {
+            this.classList.remove('bg-han-primary/10', 'bg-tibetan-primary/10', 'bg-theravada-primary/10');
+            this.classList.add('bg-green-500', 'text-white');
+            feedbackEl.textContent = '正确！';
+            feedbackEl.classList.add('text-green-600');
+          } else {
+            this.classList.remove('bg-han-primary/10', 'bg-tibetan-primary/10', 'bg-theravada-primary/10');
+            this.classList.add('bg-red-500', 'text-white');
+            feedbackEl.textContent = `错误，正确答案是：${['汉传', '藏传', '南传'][answers[questionIndex]]}`;
+            feedbackEl.classList.add('text-red-600');
+          }
+          
+          feedbackEl.classList.remove('hidden');
+        });
       });
-      
-      // 显示反馈
-      if (selectedAnswer === answers[questionIndex]) {
-        this.classList.add('bg-green-100', 'text-green-800');
-        feedbackEl.textContent = '正确！';
-        feedbackEl.classList.add('text-green-600');
-      } else {
-        this.classList.add('bg-red-100', 'text-red-800');
-        feedbackEl.textContent = `错误，正确答案是：${['汉传', '藏传', '南传'][answers[questionIndex]]}`;
-        feedbackEl.classList.add('text-red-600');
-      }
-      
-      feedbackEl.classList.remove('hidden');
-    });
-  });
 });
       </script>
     </body>
