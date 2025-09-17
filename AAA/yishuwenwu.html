@@ -222,46 +222,247 @@ input:checked + label .description {
 <body class="font-sans bg-temple-paper text-gray-800 scroll-smooth">
     <!-- 导航栏 -->
     <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
-        <nav class="bg-white/10 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
+        <nav class="bg-gray-200/40 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
             <div class="flex items-center space-x-2">
-                <a href="index.html" class="text-temple-red text-2xl font-bold flex items-center">
+                <a href="#" class="text-temple-red text-2xl font-bold flex items-center">
                     <!-- 增大后的logo -->
                     <img src="../AAA/images/logo.png" alt="中国古寺标志" class="h-12 w-auto rounded-md mr-2 object-cover">
-                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">艺术与文物</h2>
+                    <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-white text-shadow font-stylish">中国古寺</h2>
                 </a>
             </div>
 
             <!-- 桌面导航 -->
-            <div class="hidden md:flex items-center space-x-16">
-                <a href="index.html#about"
-                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">首页</a>
-                <a href="#intro"
-                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">文物雕塑</a>
-                <div class="relative group">
-                    <a href="#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-xl flex items-center">
-                        壁画经卷
-                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i>
+            <div class="hidden md:flex items-center space-x-8">
+                <!-- 首页链接 -->
+                <a href="index.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-lg">首页</a>
+                
+                <!-- 艺术文物下拉菜单 -->
+                <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
+                    <!-- 主菜单项 -->
+                    <a href="yishuwenwu.html" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        艺术文物
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
                     </a>
-                    <div class="absolute top-full left-0 mt-2 w-56 bg-gradient-to-br from-white/98 to-temple-paper/95 backdrop-blur-xl rounded-xl shadow-2xl border border-temple-gold/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 transform translate-y-2 group-hover:translate-y-0 z-50">
-                        <div class="py-3">
-                             <a href="ysywwsanjiyi.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
-                                 <i class="fa fa-home mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
-                                 <span class="font-medium">华严寺壁画</span>
-                             </a>
-                             <a href="ysywwanjier.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
-                                 <i class="fa fa-university mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
-                                 <span class="font-medium">萨迦寺经书</span>
-                             </a>
-                             <a href="ysywwsanjisan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
-                                 <i class="fa fa-picture-o mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
-                                 <span class="font-medium">唐卡</span>
-                             </a>
-                         </div>
+                    
+                    <!-- 下拉菜单容器 - 这里是背景设置的关键部分 -->
+                    <div class="
+                        absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距5，宽度56 -->
+                        bg-amber-200/60                         <!-- 背景颜色：米色 amber-200 -->
+                        rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
+                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
+                        group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
+                        transition-all duration-500           <!-- 过渡动画：500ms -->
+                        transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
+                        z-40                                  <!-- 层级：50，确保在其他元素之上 -->
+                    ">
+                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                            <!-- 子菜单项1：华严寺壁画 -->
+                            <a href="ysywwsanjiyi.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-paint-brush mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">华严寺壁画</span>
+                            </a>
+                            <!-- 子菜单项2：萨迦寺经书 -->
+                            <a href="ysywwanjier.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-book mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">萨迦寺经书</span>
+                            </a>
+                            <!-- 子菜单项3：唐卡艺术 -->
+                            <a href="ysywwsanjisan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-image mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">唐卡艺术</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-               
+                
+                <!-- 名山节庆下拉菜单 -->
+                <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
+                    <!-- 主菜单项 -->
+                    <a href="chaoshneg.html" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        名山节庆
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
+                    </a>
+                    
+                    <!-- 下拉菜单容器 -->
+                    <div class="
+                        absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距4，宽度56 -->
+                        bg-amber-200/60                         <!-- 背景颜色：米色 amber-200 -->
+                        rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
+                        border border-amber-300/60             <!-- 边框：米色边框 -->
+                        opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
+                        group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
+                        transition-all duration-500           <!-- 过渡动画：500ms -->
+                        transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
+                        z-50                                  <!-- 层级：50，确保在其他元素之上 -->
+                    ">
+                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                            <!-- 子菜单项1：五台山 -->
+                            <a href="wutaishan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <img src="../AAA/images/logo.png" alt="五台山logo" class="w-4 h-4 mr-3 rounded opacity-70 group-hover/item:opacity-100 transition-opacity duration-300">
+                                <span class="font-medium">五台山</span>
+                            </a>
+                            <!-- 子菜单项2：峨眉山 -->
+                            <a href="emeishan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-tree mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">峨眉山</span>
+                            </a>
+                            <!-- 子菜单项3：九华山 -->
+                            <a href="jiuhuashan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-leaf mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">九华山</span>
+                            </a>
+                            <!-- 子菜单项4：普陀山 -->
+                            <a href="puyuoshan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-anchor mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">普陀山</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 文学传播 -->
+                <a href="wenxuechuanbo.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-lg">文学传播</a>
+                
+                <!-- 建筑文化下拉菜单 -->
+                <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
+                    <!-- 主菜单项 -->
+                    <a href="jianzhu.html" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        建筑文化
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
+                    </a>
+                    
+                    <!-- 下拉菜单容器 -->
+                    <div class="
+                        absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距4，宽度56 -->
+                        bg-amber-200/60                        <!-- 背景颜色：米色 amber-200 -->
+                        rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
+                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
+                        group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
+                        transition-all duration-500           <!-- 过渡动画：500ms -->
+                        transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
+                        z-50                                  <!-- 层级：50，确保在其他元素之上 -->
+                    ">
+                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                            <!-- 子菜单项1：建筑三级一 -->
+                            <a href="jzsanjiyi.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-building mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">装饰艺术</span>
+                            </a>
+                            <!-- 子菜单项2：建筑三级二 -->
+                            <a href="jzsanjier.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-columns mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">布局解析</span>
+                            </a>
+                            <!-- 子菜单项3：建筑三级三 -->
+                            <a href="jzsanjisan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-home mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">建筑风格</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 饮食文化 -->
+                <a href="yinshi.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-lg">饮食文化</a>
+                
+                <!-- 现代寺庙下拉菜单 -->
+                <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
+                    <!-- 主菜单项 -->
+                    <a href="xiandai.html" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        现代寺庙
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
+                    </a>
+                    
+                    <!-- 下拉菜单容器 -->
+                    <div class="
+                        absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距4，宽度56 -->
+                        bg-amber-200/60                        <!-- 背景颜色：米色 amber-200 -->
+                        rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
+                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
+                        group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
+                        transition-all duration-500           <!-- 过渡动画：500ms -->
+                        transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
+                        z-50                                  <!-- 层级：50，确保在其他元素之上 -->
+                    ">
+                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                            <!-- 子菜单项1：现代寺庙三级八 -->
+                            <a href="sanjiba.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-globe mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">数字藏经阁</span>
+                            </a>
+                            <!-- 子菜单项2：现代寺庙三级九 -->
+                            <a href="sanjijiu.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-users mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">金阁键盘</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 古寺一隅下拉菜单 -->
+                <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
+                    <!-- 主菜单项 -->
+                    <a href="#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                        古寺一隅
+                        <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
+                    </a>
+                    
+                    <!-- 下拉菜单容器 -->
+                    <div class="
+                        absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距2，宽度56 -->
+                        bg-amber-200/60                          <!-- 背景颜色：米色 amber-200 -->
+                        rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
+                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
+                        group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
+                        transition-all duration-500           <!-- 过渡动画：500ms -->
+                        transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
+                        z-50                                  <!-- 层级：50，确保在其他元素之上 -->
+                    ">
+                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                            <!-- 子菜单项1：艺术与文物 -->
+                            <a href="zhaopianqiang1/index.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-diamond mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">艺术与文物</span>
+                            </a>
+                            <!-- 子菜单项2：名山与节庆 -->
+                            <a href="zhaopianqiang2/index.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-calendar mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">名山与节庆</span>
+                            </a>
+                            <!-- 子菜单项3：文学与传播 -->
+                            <a href="zhaopianqiang3/index.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-book mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">文学与传播</span>
+                            </a>
+                            <!-- 子菜单项4：建筑文化 -->
+                            <a href="zhaopianqiang4/index.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-building mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">建筑文化</span>
+                            </a>
+                            <!-- 子菜单项5：饮食文化 -->
+                            <a href="zhaopianqiang5/index.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-cutlery mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">饮食文化</span>
+                            </a>
+                            <!-- 子菜单项6：现代寺庙与社会 -->
+                            <a href="zhaopianqiang6/index.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
+                                <i class="fa fa-globe mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
+                                <span class="font-medium">现代寺庙与社会</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 联系我们 -->
                 <a href="contact.html"
-                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-xl">联系我们</a>
+                    class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 hover:after:w-full text-lg">联系我们</a>
             </div>
 
             <!-- 搜索框 -->
@@ -295,36 +496,163 @@ input:checked + label .description {
         </div>
 
         <!-- 移动端导航菜单 -->
-        <div id="mobileMenu" class="hidden md:hidden bg-white/98 backdrop-blur-md absolute w-full shadow-lg">
-            <div class="flex flex-col p-8 space-y-5">
-                <a href="index.html#about"
-                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
-                    首页
-                </a>
-                <a href="#intro"
-                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
-                    文物雕塑
-                </a>
+        <div id="mobileMenu" class="hidden md:hidden bg-white/98 backdrop-blur-md absolute w-full shadow-lg max-h-96 overflow-y-auto">
+            <div class="flex flex-col p-4 space-y-2">
+                <!-- 艺术文物 -->
                 <div class="mobile-dropdown">
-                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-xl" onclick="toggleMobileDropdown(this)">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
                         <span class="flex items-center">
-                            <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
-                            壁画经卷
+                            <i class="fa fa-paint-brush mr-3 w-6 text-lg"></i>
+                            艺术文物
                         </span>
                         <i class="fa fa-angle-down transition-transform"></i>
                     </button>
-                    <div class="mobile-submenu hidden pl-12 space-y-2">
-                         <a href="ysywwsanjiyi.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">华严寺</a>
-                         <a href="ysywwanjier.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">萨迦寺</a>
-                         <a href="ysywwsanjisan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors">唐卡</a>
-                     </div>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <a href="ysywwsanjiyi.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-paint-brush mr-2 text-sm"></i>
+                            华严寺壁画
+                        </a>
+                        <a href="ysywwanjier.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-book mr-2 text-sm"></i>
+                            萨迦寺经书
+                        </a>
+                        <a href="ysywwsanjisan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-image mr-2 text-sm"></i>
+                            唐卡艺术
+                        </a>
+                    </div>
                 </div>
                 
+                <!-- 名山节庆 -->
+                <div class="mobile-dropdown">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fa fa-mountain mr-3 w-6 text-lg"></i>
+                            名山节庆
+                        </span>
+                        <i class="fa fa-angle-down transition-transform"></i>
+                    </button>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <a href="wutaishan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <img src="../AAA/images/logo.png" alt="五台山logo" class="w-4 h-4 mr-2 rounded">
+                            五台山
+                        </a>
+                        <a href="emeishan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-tree mr-2 text-sm"></i>
+                            峨眉山
+                        </a>
+                        <a href="jiuhuashan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-leaf mr-2 text-sm"></i>
+                            九华山
+                        </a>
+                        <a href="puyuoshan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-anchor mr-2 text-sm"></i>
+                            普陀山
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 文学传播 -->
+                <a href="wenxuechuanbo.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center text-lg">
+                    <i class="fa fa-book mr-3 w-6 text-lg"></i>
+                    文学传播
+                </a>
+                
+                <!-- 建筑文化 -->
+                <div class="mobile-dropdown">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fa fa-building mr-3 w-6 text-lg"></i>
+                            建筑文化
+                        </span>
+                        <i class="fa fa-angle-down transition-transform"></i>
+                    </button>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <a href="jzsanjiyi.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-building mr-2 text-sm"></i>
+                            古建结构
+                        </a>
+                        <a href="jzsanjier.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-columns mr-2 text-sm"></i>
+                            建筑工艺
+                        </a>
+                        <a href="jzsanjisan.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-home mr-2 text-sm"></i>
+                            寺庙布局
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 饮食文化 -->
+                <a href="yinshi.html"
+                    class="text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center text-lg">
+                    <i class="fa fa-utensils mr-3 w-6 text-lg"></i>
+                    饮食文化
+                </a>
+                
+                <!-- 现代寺庙 -->
+                <div class="mobile-dropdown">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fa fa-university mr-3 w-6 text-lg"></i>
+                            现代寺庙
+                        </span>
+                        <i class="fa fa-angle-down transition-transform"></i>
+                    </button>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <a href="sanjiba.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-globe mr-2 text-sm"></i>
+                            现代发展
+                        </a>
+                        <a href="sanjijiu.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-users mr-2 text-sm"></i>
+                            社会作用
+                        </a>
+                    </div>
+                 </div>
+                
+                <!-- 古寺一隅 -->
+                <div class="mobile-dropdown">
+                    <button class="w-full text-left text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center justify-between text-lg" onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fa fa-image mr-3 w-6 text-lg"></i>
+                            古寺一隅
+                        </span>
+                        <i class="fa fa-angle-down transition-transform"></i>
+                    </button>
+                    <div class="mobile-submenu hidden pl-8 space-y-1">
+                        <a href="zhaopianqiang1/index.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-diamond mr-2 text-sm"></i>
+                            艺术与文物
+                        </a>
+                        <a href="zhaopianqiang2/index.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-calendar mr-2 text-sm"></i>
+                            名山与节庆
+                        </a>
+                        <a href="zhaopianqiang3/index.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-book mr-2 text-sm"></i>
+                            文学与传播
+                        </a>
+                        <a href="zhaopianqiang4/index.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-building mr-2 text-sm"></i>
+                            建筑文化
+                        </a>
+                        <a href="zhaopianqiang5/index.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-cutlery mr-2 text-sm"></i>
+                            饮食文化
+                        </a>
+                        <a href="zhaopianqiang6/index.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
+                            <i class="fa fa-globe mr-2 text-sm"></i>
+                            现代寺庙与社会
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 联系我们 -->
                 <a href="contact.html"
-                    class="text-temple-red hover:text-temple-gold transition-colors py-4 px-8 rounded-md hover:bg-temple-gold/10 flex items-center text-xl">
-                    <i class="fa fa-angle-right mr-4 w-10 text-lg"></i>
+                    class="text-temple-red hover:text-temple-gold transition-colors py-3 px-4 rounded-md hover:bg-temple-gold/10 flex items-center text-lg">
+                    <i class="fa fa-envelope mr-3 w-6 text-lg"></i>
                     联系我们
                 </a>
             </div>
