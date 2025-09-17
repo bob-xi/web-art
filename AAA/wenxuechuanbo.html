@@ -29,6 +29,7 @@
                     },
                     fontFamily: {
                         sans: ['Noto Sans SC', 'sans-serif'],
+                        nangou: ['"Nangou Wuyang"', 'serif']
                     },
                 }
             }
@@ -43,6 +44,16 @@
         
         .font-stylish {
             font-family: '华文中宋', 'STZhongsong', '华文宋体', 'SimSun', serif;
+        }
+        
+        /* 南构无恙字体 */
+        @font-face {
+            font-family: 'Nangou Wuyang';
+            src: local('Nangou Wuyang'),
+                 url('南构无恙行书.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
         }
     </style>
 
@@ -90,7 +101,7 @@
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #a02721;
+            background: #680f25;
         }
 
         /* 轮播图动画 */
@@ -122,7 +133,7 @@
         .loader {
             width: 48px;
             height: 48px;
-            border: 5px solid #C22E28;
+            border: 5px solid #680f25;
             border-bottom-color: transparent;
             border-radius: 50%;
             animation: rotation 1s linear infinite;
@@ -472,7 +483,7 @@
                 <!-- 古寺一隅下拉菜单 -->
                 <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
                     <!-- 主菜单项 -->
-                    <a href="#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                    <a href="index.html#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
                         古寺一隅
                         <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
                     </a>
@@ -744,8 +755,15 @@
 
     <!-- 第一板块：轮播图背景 -->
     <section class="banner">
-        <div class="banner-text">
+        <div class="banner-text relative">
           <img src="../AAA/images/wenhua/2.png" alt="">
+          <!-- 文学与传播文字 -->
+          <div class="absolute top-8 right-8 z-10">
+            <h1 class="font-nangou text-8xl text-white font-bold drop-shadow-2xl" 
+                style="text-shadow: 0 4px 12px rgb(0 0 0 / 70%)">
+              文学与传播
+            </h1>
+          </div>
         </div>
       </section>
      

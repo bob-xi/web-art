@@ -33,6 +33,7 @@
                     fontFamily: {
                         serif: ['Noto Serif SC', 'serif'],
                         display: ['Ma Shan Zheng', 'cursive'],
+                        nangou: ['"Nangou Wuyang"', 'serif'],
                     },
                     backgroundImage: {
                         'pattern': "url('https://picsum.photos/id/1025/100/100')",
@@ -100,6 +101,14 @@
         }
     </style>
     <style>
+        /* 南构字体配置 */
+        @font-face {
+            font-family: 'Nangou Wuyang';
+            src: url('南构无恙行书.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
          /* Banner 区域 */
   
   .banner {
@@ -118,7 +127,7 @@
 
 <body class="font-serif bg-light text-dark scroll-smooth">
      <!-- 导航栏 -->
-        <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+ <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
         <nav class="bg-gray-200/40 backdrop-blur-md py-3 px-4 md:px-8 flex items-center justify-between shadow-md">
             <div class="flex items-center space-x-2">
                 <a href="#" class="text-temple-red text-2xl font-bold flex items-center">
@@ -145,16 +154,16 @@
                     <!-- 下拉菜单容器 - 这里是背景设置的关键部分 -->
                     <div class="
                         absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距5，宽度56 -->
-                        bg-amber-200 /60                         <!-- 背景颜色：米色 amber-200 -->
+                        bg-amber-200/20                         <!-- 背景颜色：米色 amber-200 -->
                         rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
-                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        border border-amber-300/20              <!-- 边框：米色边框 -->
                         opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
                         group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
                         transition-all duration-500           <!-- 过渡动画：500ms -->
                         transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
                         z-40                                  <!-- 层级：50，确保在其他元素之上 -->
                     ">
-                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                        <div class="py-1 bg-amber-100/20 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
                             <!-- 子菜单项1：华严寺壁画 -->
                             <a href="ysywwsanjiyi.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
                                 <i class="fa fa-paint-brush mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
@@ -185,16 +194,16 @@
                     <!-- 下拉菜单容器 -->
                     <div class="
                         absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距4，宽度56 -->
-                        bg-amber-200 /60                         <!-- 背景颜色：米色 amber-200 -->
+                        bg-amber-200/20                         <!-- 背景颜色：米色 amber-200 -->
                         rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
-                        border border-amber-300 /60             <!-- 边框：米色边框 -->
+                        border border-amber-300/20             <!-- 边框：米色边框 -->
                         opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
                         group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
                         transition-all duration-500           <!-- 过渡动画：500ms -->
                         transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
                         z-50                                  <!-- 层级：50，确保在其他元素之上 -->
                     ">
-                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                        <div class="py-1 bg-amber-100/20 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
                             <!-- 子菜单项1：五台山 -->
                             <a href="wutaishan.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
                                 <img src="../AAA/images/logo.png" alt="五台山logo" class="w-4 h-4 mr-3 rounded opacity-70 group-hover/item:opacity-100 transition-opacity duration-300">
@@ -234,16 +243,16 @@
                     <!-- 下拉菜单容器 -->
                     <div class="
                         absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距4，宽度56 -->
-                        bg-amber-200/60                        <!-- 背景颜色：米色 amber-200 -->
+                        bg-amber-200/20                        <!-- 背景颜色：米色 amber-200 -->
                         rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
-                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        border border-amber-300/20              <!-- 边框：米色边框 -->
                         opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
                         group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
                         transition-all duration-500           <!-- 过渡动画：500ms -->
                         transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
                         z-50                                  <!-- 层级：50，确保在其他元素之上 -->
                     ">
-                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                        <div class="py-1 bg-amber-100/20 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
                             <!-- 子菜单项1：建筑三级一 -->
                             <a href="jzsanjiyi.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
                                 <i class="fa fa-building mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
@@ -278,16 +287,16 @@
                     <!-- 下拉菜单容器 -->
                     <div class="
                         absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距4，宽度56 -->
-                        bg-amber-200/60                        <!-- 背景颜色：米色 amber-200 -->
+                        bg-amber-200/20                        <!-- 背景颜色：米色 amber-200 -->
                         rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
-                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        border border-amber-300/20              <!-- 边框：米色边框 -->
                         opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
                         group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
                         transition-all duration-500           <!-- 过渡动画：500ms -->
                         transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
                         z-50                                  <!-- 层级：50，确保在其他元素之上 -->
                     ">
-                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                        <div class="py-1 bg-amber-100/20 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
                             <!-- 子菜单项1：现代寺庙三级八 -->
                             <a href="sanjiba.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
                                 <i class="fa fa-globe mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
@@ -305,7 +314,7 @@
                 <!-- 古寺一隅下拉菜单 -->
                 <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
                     <!-- 主菜单项 -->
-                    <a href="#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                    <a href="index.html#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
                         古寺一隅
                         <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
                     </a>
@@ -313,16 +322,16 @@
                     <!-- 下拉菜单容器 -->
                     <div class="
                         absolute top-full left-0 mt-5 w-56    <!-- 绝对定位：顶部对齐父元素底部，左对齐，上边距2，宽度56 -->
-                        bg-amber-200/60                          <!-- 背景颜色：米色 amber-200 -->
+                        bg-amber-200/20                          <!-- 背景颜色：米色 amber-200 -->
                         rounded-xl shadow-2xl                <!-- 圆角和阴影效果 -->
-                        border border-amber-300/60              <!-- 边框：米色边框 -->
+                        border border-amber-300/20              <!-- 边框：米色边框 -->
                         opacity-0 invisible                  <!-- 初始状态：完全透明且不可见 -->
                         group-hover:opacity-100 group-hover:visible  <!-- 悬停时：完全不透明且可见 -->
                         transition-all duration-500           <!-- 过渡动画：500ms -->
                         transform translate-y-2 group-hover:translate-y-0  <!-- 位移动画：初始下移2，悬停时归位 -->
                         z-50                                  <!-- 层级：50，确保在其他元素之上 -->
                     ">
-                        <div class="py-1 bg-amber-100/60 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
+                        <div class="py-1 bg-amber-100/20 rounded-xl"> <!-- 内容容器，上下内边距3，米色背景 -->
                             <!-- 子菜单项1：艺术与文物 -->
                             <a href="zhaopianqiang1/index.html" class="group/item flex items-center px-5 py-3 text-temple-red hover:text-white hover:bg-gradient-to-r hover:from-temple-red hover:to-temple-gold transition-all duration-300 rounded-lg mx-2 mb-1 transform hover:scale-105 hover:shadow-md">
                                 <i class="fa fa-diamond mr-3 text-sm opacity-70 group-hover/item:opacity-100"></i>
@@ -500,11 +509,11 @@
                     <div class="mobile-submenu hidden pl-8 space-y-1">
                         <a href="sanjiba.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
                             <i class="fa fa-globe mr-2 text-sm"></i>
-                            现代发展
+                            数字藏经阁
                         </a>
                         <a href="sanjijiu.html" class="block py-2 px-4 text-temple-red hover:text-temple-gold hover:bg-temple-gold/10 rounded transition-colors flex items-center">
                             <i class="fa fa-users mr-2 text-sm"></i>
-                            社会作用
+                            金阁键盘
                         </a>
                     </div>
                  </div>
@@ -556,7 +565,6 @@
         </div>
         
     </header>
-
     <!-- 面包屑导航 -->
     <nav class="bg-gray-50 border-b border-gray-200 py-3 mt-16">
       <div class="container mx-auto px-4">
@@ -579,6 +587,10 @@
 <section class="banner">
     <div class="banner-text">
       <img src="../AAA/images/yinshi/1.png" alt="">
+    </div>
+    <!-- 右上角文字 - 饮食文化 -->
+    <div class="absolute top-32 right-8 z-10 font-nangou text-8xl text-white font-bold drop-shadow-2xl" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);">
+      饮食文化
     </div>
   </section>
 

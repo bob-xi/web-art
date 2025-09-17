@@ -28,8 +28,9 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Noto Sans SC', 'sans-serif'],
-                    },
+                    sans: ['Noto Sans SC', 'sans-serif'],
+                    nangou: ['"Nangou Wuyang"', 'serif'],
+                  },
                 }
             }
         }
@@ -426,6 +427,14 @@
     .arrow-right {
       right: 20px;
     }
+    
+    /* 南构无恙字体 */
+    @font-face {
+      font-family: 'Nangou Wuyang';
+      src: url('南构无恙行书.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
   </style>
 </head>
 
@@ -618,7 +627,7 @@
                 <!-- 古寺一隅下拉菜单 -->
                 <div class="relative group"> <!-- 相对定位容器，group用于子元素悬停效果 -->
                     <!-- 主菜单项 -->
-                    <a href="#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
+                    <a href="index.html#corner" class="text-temple-red hover:text-temple-gold transition-colors font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-temple-gold after:transition-all after:duration-300 group-hover:after:w-full text-lg flex items-center">
                         古寺一隅
                         <i class="fa fa-angle-down ml-1 transition-transform group-hover:rotate-180"></i> <!-- 下拉箭头，悬停时旋转180度 -->
                     </a>
@@ -892,6 +901,10 @@
     <section class="banner">
         <div class="banner-text">
           <img src="../AAA/images/xiandai/1.png" alt="">
+        </div>
+        <!-- 右上角文字 - 现代寺庙与发展 -->
+        <div class="absolute top-32 right-8 z-10 font-nangou text-8xl text-white font-bold drop-shadow-2xl" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);">
+            现代寺庙与发展
         </div>
       </section>
 
